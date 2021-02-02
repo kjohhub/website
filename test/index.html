@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>YOUTUBE PLAYER</title>
+    <meta charset="utf-8">
+    <link rel ="stylesheet" href="style.css" />
+    <script>
+    function changeIframeUrl(url) {
+      document.getElementById("player").src = url;
+    }
+    </script>
+  </head>
+  <body>
+    <div class="panel-top">
+      <div style="float: left; width:25%; height: 100%; background-color:black; color: white; font-size: 32px;">YouTube</div>
+      <div style="float: left; width:50%; height: 100%; background-color:black;">
+        <input type="search" id="search" placeholder="Search..."/>
+      </div>
+      <div style="float: right; width:25%; height: 100%; background-color:black;">
+        <button class="button" id="login">로그인</button>
+      </div>
+    </div>
+    <div class="panel-container">
+      <div class="panel-left">
+        <button class="button">재생 목록</button>
+        <button class="button">시청 기록</button>
+      </div>
+      <div class="panel-center">
+        <iframe id="player" src="https://www.youtube.com/embed/" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div class="panel-right">
+        <table>
+          <tr>
+            <image src="https://i.ytimg.com/vi/0-q1KafFCLU/hqdefault.jpg" onclick = "changeIframeUrl('https://www.youtube.com/embed/0-q1KafFCLU')">
+          </tr>
+          <tr>
+            <image src="https://i.ytimg.com/vi/Y_8aUSyNM9Y/hqdefault.jpg" onclick = "changeIframeUrl('https://www.youtube.com/embed/Y_8aUSyNM9Y')">
+          </tr>
+          <tr>
+            <image src="https://i.ytimg.com/vi/gXwVNwdOFhk/hqdefault.jpg" onclick = "changeIframeUrl('https://www.youtube.com/embed/gXwVNwdOFhk')">
+          </tr>
+          <tr>
+            <image src="https://i.ytimg.com/vi/ZcnnUoyv-hs/hqdefault.jpg" onclick = "changeIframeUrl('https://www.youtube.com/embed/ZcnnUoyv-hs')">
+          </tr>
+          <tr>
+            <image src="https://i.ytimg.com/vi/BzVCaXkR6Gc/hqdefault.jpg" onclick = "changeIframeUrl('https://www.youtube.com/embed/BzVCaXkR6Gc')">
+          </tr>
+          <tr>
+            <image src="https://i.ytimg.com/vi/jPe160muXf0/hqdefault.jpg" onclick = "changeIframeUrl('https://www.youtube.com/embed/jPe160muXf0')">
+          </tr>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

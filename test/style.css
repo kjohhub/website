@@ -1,0 +1,110 @@
+html, body {
+  margin: 0;
+  height: 100%;
+
+}
+.panel-top {
+  min-height: 50px;
+  background-color: black;
+  padding: 20px;
+  border-bottom: 1px solid gray;
+}
+.panel-container {
+  background-color: black;
+  height: calc(100% - 91px);
+  display: flex;
+  flex-direction: row;
+}
+.panel-left {
+  width: 200px;
+  background-color: black;
+  border-right: 1px solid gray;
+}
+.panel-center {
+    width: 100%;
+    height: 100%;
+}
+.panel-center iframe {
+
+  width: 100%;
+  height: 100%;
+
+/*
+border: 20px;
+width: 1440px;
+	height: 810px;*/
+}
+.panel-right {
+  width: 240px;
+  background-color: black;
+  overflow: auto;
+}
+
+.panel-left .button {
+  background-color: black; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  width: 150px;
+  display: block;
+  margin: 5px;
+
+}
+
+.panel-left .button:not(:last-child) {
+  border-bottom: none; /* Prevent double borders */
+}
+
+.panel-left .button:hover {
+  background-color: #2f2f2f;
+}
+
+.panel-left .button:focus {
+  background-color: blue;
+  outline:none!important;
+}
+
+.panel-top .button {
+  position: absolute;
+  right: 10px;
+  width: 100px;
+  height: 50px;
+  border: none;
+  background-color: white;
+  outline:none!important;
+}
+
+.panel-top .button:active {
+  border: none;
+  background-color: #e2e2e2;
+  outline:none!important;
+}
+
+
+input {
+  border:0;
+  outline:0;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  font-size: 21px;
+  border-radius: 3px;
+}
+input:focus {
+  outline:none!important;
+}
+
+img {
+  width: 160px;
+  height: 120px;
+  margin-left: 10px;
+  margin-right: 10px;
+  border: 3px solid black;
+}
+img:hover {
+  border: 3px solid blue;
+}
