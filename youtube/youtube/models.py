@@ -4,7 +4,15 @@ from django.db import models
 
 # 회원 테이블
 class memberTbl(models.Model):
-    pass
+    id = models.CharField(max_length=16, primary_key=True)
+    password = models.CharField(max_length=16)
+    name = models.CharField(max_length=16)
+    birthdate = models.DateTimeField('date published')
+    mobile = models.CharField(max_length=13)
+    address = models.CharField(max_length=32)
+
+    def __str__(self):
+        return self.id
 
 
 # 동영상 테이블
