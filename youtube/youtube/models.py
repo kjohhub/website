@@ -17,8 +17,16 @@ class memberTbl(models.Model):
 
 # 동영상 테이블
 class videoTbl(models.Model):
-    pass
+    ID = models.CharField(max_length=16, primary_key=True)
+    title = models.CharField(max_length=64)
+    video_url = models.CharField(max_length=64)
+    image_url = models.CharField(max_length=64)
+    upload_time = models.CharField(max_length=13)
 
+    def __str__(self):
+        return self.ID
+
+   
 
 # 재생 목록 테이블
 class playlistTbl(models.Model):
