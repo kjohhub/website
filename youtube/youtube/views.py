@@ -1,3 +1,9 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+
+# index
+def index(request):
+    context = {}
+    return render(request, 'youtube/index.html', context)
+    
