@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 {% load static %}
-
 <html>
   <head>
     <title>YOUTUBE PLAYER</title>
     <meta charset="utf-8">
-    <link rel ="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel ="stylesheet" href={% static 'css/style.css' %} />
     <script>
     function changeIframeUrl(url) {
       document.getElementById("player").src = url;
