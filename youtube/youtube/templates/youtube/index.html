@@ -2,7 +2,7 @@
 {% load static %}
 <html>
   <head>
-    <title>MTUBE Premium</title>
+    <title>MTube Premium</title>
     <meta charset="utf-8">
     <link rel ="stylesheet" href={% static 'css/style.css' %} />
     <script>
@@ -15,16 +15,24 @@
     <div class="panel-top">
       <div style="float: left; width:25%; height: 100%; background-color:black; color: white; font-size: 32px;">MTube Premium</div>
       <div style="float: left; width:50%; height: 100%; background-color:black;">
-        <input type="search" id="search" placeholder="Search..."/>
+        <form class="form-inline my-2 my-lg-0" action="" method="get">
+          <input type="search" placeholder="Search..."/ name="q">
+          <button class="button" type="submit"><i class="fas fa-search"></i></button>
+        </form>
       </div>
       <div style="float: right; width:25%; height: 100%; background-color:black;">
-        <button class="button" id="login">로그인</button>
+        {% if user.is_authenticated %}
+        <button class="button" id="logout" onclick="location.href='{% url 'logout' %}'">{{ user.username }} 로그아웃</button>
+        {% else %}
+        <button class="button" id="login" onclick="location.href='{% url 'login' %}'">로그인</button>
+        {% endif %}
       </div>
     </div>
     <div class="panel-container">
       <div class="panel-left">
         <button class="button">재생 목록</button>
         <button class="button">시청 기록</button>
+
       </div>
       <div class="panel-center">
         <iframe id="player" src="https://www.youtube.com/embed/" frameborder="0" allowfullscreen></iframe>
