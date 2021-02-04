@@ -2,7 +2,7 @@
 {% load static %}
 <html>
   <head>
-    <title>YOUTUBE PLAYER</title>
+    <title>MTUBE Premium</title>
     <meta charset="utf-8">
     <link rel ="stylesheet" href={% static 'css/style.css' %} />
     <script>
@@ -13,7 +13,7 @@
   </head>
   <body>
     <div class="panel-top">
-      <div style="float: left; width:25%; height: 100%; background-color:black; color: white; font-size: 32px;">YouTube</div>
+      <div style="float: left; width:25%; height: 100%; background-color:black; color: white; font-size: 32px;">MTube Premium</div>
       <div style="float: left; width:50%; height: 100%; background-color:black;">
         <input type="search" id="search" placeholder="Search..."/>
       </div>
@@ -30,26 +30,15 @@
         <iframe id="player" src="https://www.youtube.com/embed/" frameborder="0" allowfullscreen></iframe>
       </div>
       <div class="panel-right">
+        {% if video_list %}
         <table>
-          <tr>
-            <image src="https://i.ytimg.com/vi/0-q1KafFCLU/hqdefault.jpg" onclick = "changeIframeUrl('https://www.youtube.com/embed/0-q1KafFCLU')">
-          </tr>
-          <tr>
-            <image src="https://i.ytimg.com/vi/Y_8aUSyNM9Y/hqdefault.jpg" onclick = "changeIframeUrl('https://www.youtube.com/embed/Y_8aUSyNM9Y')">
-          </tr>
-          <tr>
-            <image src="https://i.ytimg.com/vi/gXwVNwdOFhk/hqdefault.jpg" onclick = "changeIframeUrl('https://www.youtube.com/embed/gXwVNwdOFhk')">
-          </tr>
-          <tr>
-            <image src="https://i.ytimg.com/vi/ZcnnUoyv-hs/hqdefault.jpg" onclick = "changeIframeUrl('https://www.youtube.com/embed/ZcnnUoyv-hs')">
-          </tr>
-          <tr>
-            <image src="https://i.ytimg.com/vi/BzVCaXkR6Gc/hqdefault.jpg" onclick = "changeIframeUrl('https://www.youtube.com/embed/BzVCaXkR6Gc')">
-          </tr>
-          <tr>
-            <image src="https://i.ytimg.com/vi/jPe160muXf0/hqdefault.jpg" onclick = "changeIframeUrl('https://www.youtube.com/embed/jPe160muXf0')">
-          </tr>
+          {% for video in video_list %}
+          <tr><image src="{{ video.image_url }}" onclick = "changeIframeUrl('{{ video.video_url }}')"></tr>
+          {% endfor %}
         </table>
+        {% else %}
+        <span style="color: white; font-size: 16px;">There is no list</span>
+        {% endif %}
       </div>
     </div>
   </body>
