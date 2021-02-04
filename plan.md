@@ -4,8 +4,8 @@
 
 1. 개요
    
-   - 이 사이트는 유튜브의 동영상을 검색하고 재생하며, 
-   - 유튜브의 재생목록 기능과 시청기록 서비스를 제공한다.
+   - 이 사이트는 **유튜브의** **음악 동영상**을 검색하고 재생하며, 
+   - 회원의 **재생목록** 과 **시청기록** 서비스를 제공한다.
    
    
    
@@ -22,9 +22,12 @@
 
 
 
-3. 시나리오
+3. 화면 설계
 
-   - 
+   * 로그인 화면 (엄정민)
+   * 회원가입 화면 (엄정민)
+   * 메인 화면 (오경진)
+   * 동영상 관리 화면 (엄정민)
    
    
    
@@ -53,7 +56,6 @@
      | image_url   | VARCHAR(64) |          |          |    Y     |         |
      | upload_time | VARCHAR(13) |          |          |          |         |
 
-
    
 
    * 재생 목록 테이블 (playlistTbl)
@@ -63,11 +65,11 @@
      | id (PK)       | INT         |    Y     |    Y     |    Y     |         |
      | user_id (FK)  | VARCHAR(64) |          |          |    Y     |         |
      | playlist_id   | INT         |    Y     |          |    Y     |    1    |
-   | video_id (FK) | VARCHAR(64) |          |          |    Y     |         |
-     
-   > ex) 1 - userid#1 - 재생목록1 - videoid#10
+     | video_id (FK) | VARCHAR(64) |          |          |    Y     |         |
 
-   
+        > ex) 1 - userid#1 - 재생목록1 - videoid#10
+
+     
 
    * 시청 기록 테이블 (historyTbl)
 
@@ -76,15 +78,26 @@
      | id (PK)       | INT         |    Y     |    Y     |    Y     |         |
      | user_id (FK)  | VARCHAR(64) |          |          |    Y     |         |
      | video_id (FK) | VARCHAR(64) |          |          |    Y     |         |
-     
-     
 
-5. 화면 설계
 
-   * 로그인 화면 (엄정민)
-   * 회원가입 화면 (엄정민)
-   * 메인 화면 (오경진)
-   * 동영상 관리 화면 (엄정민)
+
+5. View 및 Template 설계
+
+   | URL                      | View              | Template    | 비고                                |
+   | ------------------------ | ----------------- | ----------- | ----------------------------------- |
+   | /youtube/                | index()           | index.html  | 메인화면을 보여줌                   |
+   | /youtube/playlist/       | playlist()        | index.html  | 재생목록을 보여줌                   |
+   | /youtube/playlist/insert | playlist_insert() |             | 재생목록에 동영상을 추가함          |
+   | /youtube/history/        | history()         |             | 시청기록을 보여줌                   |
+   | /youtube/history/insert  | history_insert()  |             | 시청기록에 동영상을 추가함          |
+   | /youtube/login           | login()           | login.html  | 로그인화면을 보여줌                 |
+   | /youtube/logout          | logout()          |             | 로그아웃함                          |
+   | /youtube/manage          | manage()          | manage.html | 동영상관리화면을 보여줌             |
+   | /youtube/manage/add      | add_video()       |             | 동영상 추가함                       |
+   | /youtube/search/검색어   | search()          | index.html  | 동영상을 검색하고 결과목록을 보여줌 |
+   | /admin/                  | (장고 기능)       |             |                                     |
+
+   
 
 
 
@@ -103,20 +116,4 @@
 
      
 
-7. View 및 Template 설계
-
-   | URL                      | View              | Template    | 비고                                |
-   | ------------------------ | ----------------- | ----------- | ----------------------------------- |
-   | /youtube/                | index()           | index.html  | 메인화면을 보여줌                   |
-   | /youtube/playlist/       | playlist()        | index.html  | 재생목록을 보여줌                   |
-   | /youtube/playlist/insert | playlist_insert() |             | 재생목록에 동영상을 추가함          |
-   | /youtube/history/        | history()         |             | 시청기록을 보여줌                   |
-   | /youtube/history/insert  | history_insert()  |             | 시청기록에 동영상을 추가함          |
-   | /youtube/login           | login()           | login.html  | 로그인화면을 보여줌                 |
-   | /youtube/logout          | logout()          |             | 로그아웃함                          |
-   | /youtube/manage          | manage()          | manage.html | 동영상관리화면을 보여줌             |
-   | /youtube/manage/add      | add_video()       |             | 동영상 추가함                       |
-   | /youtube/search/검색어   | search()          | index.html  | 동영상을 검색하고 결과목록을 보여줌 |
-   | /admin/                  | (장고 기능)       |             |                                     |
-
-   
+7. 
