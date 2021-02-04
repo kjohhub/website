@@ -15,9 +15,8 @@
     <div class="panel-top">
       <div style="float: left; width:25%; height: 100%; background-color:black; color: white; font-size: 32px;">MTube Premium</div>
       <div style="float: left; width:50%; height: 100%; background-color:black;">
-        <form class="form-inline my-2 my-lg-0" action="" method="get">
-          <input type="search" placeholder="Search..."/ name="q">
-          <button class="button" type="submit"><i class="fas fa-search"></i></button>
+        <form class="form-inline" action="/youtube/results" style="height: 100%;" method="GET">
+          <input type="text" placeholder="Search..."/ name="search_key" value="{{ search_key }}">
         </form>
       </div>
       <div style="float: right; width:25%; height: 100%; background-color:black;">
@@ -32,7 +31,6 @@
       <div class="panel-left">
         <button class="button">재생 목록</button>
         <button class="button">시청 기록</button>
-
       </div>
       <div class="panel-center">
         <iframe id="player" src="https://www.youtube.com/embed/" frameborder="0" allowfullscreen></iframe>
@@ -44,8 +42,6 @@
           <tr><image src="{{ video.image_url }}" onclick = "changeIframeUrl('{{ video.video_url }}')"></tr>
           {% endfor %}
         </table>
-        {% else %}
-        <span style="color: white; font-size: 16px;">There is no list</span>
         {% endif %}
       </div>
     </div>
