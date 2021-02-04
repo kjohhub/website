@@ -6,6 +6,6 @@ app_name = 'youtube'
 urlpatterns = [
     path('', views.index, name='index'),      				# /youtube/
    
-    
-   
+
+
 ]
