@@ -17,7 +17,7 @@ html, body {
 
 .panel-container {
   background-color: black;
-  height: calc(100% - 91px);
+  height: calc(100% - 95px);
   display: flex;
   flex-direction: row;
 }
@@ -30,18 +30,8 @@ html, body {
     width: 100%;
     height: 100%;
 }
-.panel-center iframe {
-
-  width: 100%;
-  height: 100%;
-
-/*
-border: 20px;
-width: 1440px;
-	height: 810px;*/
-}
 .panel-right {
-  width: 240px;
+  width: 320px;
   background-color: black;
   overflow: auto;
 }
@@ -92,12 +82,13 @@ width: 1440px;
 
 
 input {
+  align: center;
   border:0;
   outline:0;
   width: 100%;
   height: 100%;
-  padding: 11px;
   font-size: 21px;
+  padding: 11px;
   border-radius: 3px;
 }
 input:focus {
@@ -106,12 +97,17 @@ input:focus {
 
 
 img {
-  width: 160px;
-  height: 120px;
-  margin-left: 10px;
-  margin-right: 10px;
-  border: 3px solid black;
+  width: 100px;
+  height: 80px;
 }
-img:hover {
-  border: 3px solid blue;
+
+table {
+  width: 100%;
+  border: 0px;
+
+}
+td {
+  color: white;
+  font-size: 14px;
+  padding: 2px;
 }

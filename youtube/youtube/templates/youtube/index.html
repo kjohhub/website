@@ -5,11 +5,7 @@
     <title>MTube Premium</title>
     <meta charset="utf-8">
     <link rel ="stylesheet" href={% static 'css/style.css' %} />
-    <script>
-    function changeIframeUrl(url) {
-      document.getElementById("player").src = url;
-    }
-    </script>
+
   </head>
   <body>
     <div class="panel-top">
@@ -33,13 +29,18 @@
         <button class="button">시청 기록</button>
       </div>
       <div class="panel-center">
-        <iframe id="player" src="https://www.youtube.com/embed/" frameborder="0" allowfullscreen></iframe>
+        <!-- 주의: src링크에 enablejsapi=1 을 꼭 넣어주어야 한다. -->
+        <div id="player"></div>
+        <script src={% static 'js/index.js' %}></script>
       </div>
       <div class="panel-right">
         {% if video_list %}
-        <table>
+        <table id = "table">
           {% for video in video_list %}
-          <tr><image src="{{ video.image_url }}" onclick = "changeIframeUrl('{{ video.video_url }}')"></tr>
+          <tr onclick = "changeVideoAndStart('{{ video.ID }}')">
+            <td><image src="{{ video.image_url }}" ></td>
+            <td>{{ video.title }}</td>
+          </tr>
           {% endfor %}
         </table>
         {% endif %}
