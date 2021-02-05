@@ -1,0 +1,155 @@
+/*210205 로그인페이지 추가*/
+/*전체 설정*/
+:root{
+    /* color */
+    --white-color: #fff;
+    --black-color: #140a00;
+    --blue-color: #045fd4;
+    --grey-dark-color: #909090;
+    --grey-light-color: #e0e0e0;
+    /* size */
+    --side-padding: 12px;
+    --avatar-size: 36px;
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+body{
+    font-family: ‘Sans-serif’;
+    margin: 0;
+}
+
+button,
+button:focus {
+    border: none;
+    cursor: pointer;
+    outline: none;
+    text-align: center;
+
+    margin: 10px;
+    width: 94%;
+    height: 44px;
+    background-color:var(--grey-dark-color);
+    border: 1px;
+    border-radius: 3px;
+    color: var(--white-color);
+    font-size: 17px;
+    font-weight: 500;
+}
+
+/*헤더부분*/
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--side-padding);
+    background-color: var(--black-color);
+    color: var(--white-color);
+    border-bottom: 1px solid var(--grey-dark-color);
+}
+
+header .title {
+    font-size: var(--font-large);
+    color: var(--white-color);
+}
+
+header .status {
+  margin-right: var(--side-padding);
+  color: var(--white-color);
+}
+
+/*로그인 메인창*/
+.main_container{
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--black-color);
+    padding-top: 150px;
+}
+
+.line_container {
+    color: var(--blue-color);
+    width: 400px;
+    height: 400px;
+    margin: auto;
+    border: 3px solid var(--white-color);
+}
+
+.form_container{
+    width: 300px;
+    margin: auto;
+}
+
+.form_title_div{
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: var(--black-color);
+}
+
+.form_title_p{
+    font-weight: bold;
+    font-size: 22px;
+    display: inline-block;
+    padding-top: 8px;
+    color: var(--white-color);
+}
+
+
+
+.form_group {
+}
+
+#form_item_name{
+    padding: 15px;
+    color: var(--grey-dark-color);
+}
+
+.form-control {
+    margin: 15px;
+    width: 92%;
+    height: 30px;
+    border: 1px solid;
+    border-radius: 3px;
+    border-color:var(--grey-dark-color);
+}
+
+.join_link {
+  cursor: pointer;
+  text-align: left;
+  color: var(--grey-dark-color);
+  margin-left:50%;
+  text-decoration: none;
+}
+
+/*회원가입 창 따로*/
+.main_container_signup{
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--black-color);
+    padding-top: 75px;
+}
+
+.line_container_signup{
+    color: var(--blue-color);
+    width: 400px;
+    height: 600px;
+    margin: auto;
+    border: 3px solid var(--white-color);
+}
+
+.login_link {
+  cursor: pointer;
+  text-align: left;
+  color: var(--grey-dark-color);
+  margin-left:35%;
+  text-decoration: none;
+}

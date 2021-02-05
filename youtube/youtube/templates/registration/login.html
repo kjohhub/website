@@ -1,45 +1,56 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
+
   <head>
-    <title>YOUTUBE PLAYER_login</title>
+    <title>MTube Premium_login</title>
     <meta charset="utf-8">
-    <link rel ="stylesheet" href={% static 'css/style.css' %} />
-
-
+    <link rel ="stylesheet" href={% static 'css/mem_style.css' %} />
   </head>
-  <body>
-          <div class="panel-top">
-      <div style="float: left; width:25%; height: 100%; background-color:black; color: white; font-size: 32px;">YouTube</div>
-      <div style="float: left; width:50%; height: 100%; background-color:black;">
-        <input type="search" id="search" placeholder="Search..."/>
-      </div>
-      <div style="float: right; width:25%; height: 100%; background-color:black;">
-        <span>로그인 페이지</span>
-      </div>
-    </div>
 
-      <section class="main">
-        <!--메인화면-->
-        <div class="container my-3">
+  <body>
+    <!--상단 바(임시)-->
+    <header>
+      <div>
+        <span class="title">Mtube Premium</span>
+      </div>
+      <div class="status">
+        <span>Log in Page</span>
+      </div>
+    </header>
+
+      <!--메인화면-->
+      <section class="main_container">
+        <div class ="line_container">
           <form method="post" class="post-form" action="{% url 'login'%}">
+
               {% csrf_token %}
               {% include "form_errors.html" %}
-              <div class="form-group">
-                  <label for="username">사용자ID</label>
-                  <input type="text" class="form-control" name="username" id="username"
-                         value="{{ form.username.value|default_if_none:'' }}">
+              <div class ="form_container">
+                <div class="form_title_div">
+                  <p class="form_title_p">로그인 정보</p>
+                </div>
+                <!--아이디입력창-->
+                <div class="form-group">
+                    <label for="username" id="form_item_name">사용자ID</label>
+                    <input type="text" class="form-control" name="username" id="username"
+                           value="{{ form.username.value|default_if_none:'' }}" maxlength=16 placeholder="ID를 입력하세요">
+                </div>
+                <!--비밀번호 입력창-->
+                <div class="form-group">
+                    <label for="password" id="form_item_name">비밀번호</label>
+                    <input type="password" class="form-control" name="password" id="password"
+                           value="{{ form.password.value|default_if_none:'' }}" maxlength=16 placeholder="비밀번호를 입력하세요">
+                </div>
+                <!--로그인 제출 버튼-->
+                <div style="padding-top: 20px;" >
+                <button type="submit" class="btn btn-primary" >로그인</button>
+                </div>
               </div>
-              <div class="form-group">
-                  <label for="password">비밀번호</label>
-                  <input type="password" class="form-control" name="password" id="password"
-                         value="{{ form.password.value|default_if_none:'' }}">
-              </div>
-              <button type="submit" class="btn btn-primary">로그인</button>
           </form>
-        </div>
-
-</section>
-
+        <!--회원가입 링크-->
+        <a href="{% url 'youtube:signup' %}" class="join_link">또는 회원으로 가입하기</a>
+      </div>
+      </section>
   </body>
 </html>
