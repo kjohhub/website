@@ -1,113 +1,164 @@
-html, body {
-  margin: 0;
-  height: 100%;
+* {
+    margin:0px;
+    padding:0px;
+}
+.container {
+    display:grid;
+    grid-template-columns: 170px 1fr 240px;
+    grid-template-rows: 70px 1fr 60px;
+    /*grid-gap: 10px;*/
+    height: 100%;
+    padding: 0px;
+    grid-template-areas:
+        "header header header"
+        "left main right"
+        "left bottom right";
+}
 
+/* header */
+.header {
+    grid-area:header;
+    padding: 10px;
+    display:grid;
+    grid-template-columns: 250px 1fr 300px;
+    border-bottom: 1px solid gray;
+    background-color:black;
+    grid-template-areas:
+    ".title .search .login"
 }
-.panel-top {
-  min-height: 50px;
-  background-color: black;
-  padding: 20px;
-  border-bottom: 1px solid gray;
+.header .title
+{
+    line-height: 50px;
+    vertical-align: middle;
+    color: white;
+    font-size: 30px;
+    letter-spacing: -1px;
 }
 
-.form-inline .button {
-  width: 150px;
-  height: 30px;
+.header .search{
+    height: 50px;
+    margin-left: 10%;
+    margin-right: 10%;
 }
 
-.panel-container {
-  background-color: black;
-  height: calc(100% - 95px);
-  display: flex;
-  flex-direction: row;
+.header .search input {
+    border: 0px;
+    outline: none;
+    width: calc(100% - 103px);
+    height: 50px;
+    font-size: 21px;
+    padding: 9px;
+    border-radius: 3px;
+    float: left;
+  }
+.header .search input:focus {
+    outline:none!important;
 }
-.panel-left {
-  width: 200px;
-  background-color: black;
-  border-right: 1px solid gray;
+
+.header .search > button {
+    width: 100px; 
+    height: 50px;
+    margin-left: 3px;
+    float: left;
 }
-.panel-center {
-    width: 100%;
+
+.header .login {
+    width: 300px;
     height: 100%;
 }
-.panel-right {
-  width: 320px;
-  background-color: black;
-  overflow: auto;
+
+.login > span {
+    line-height: 50px;
+    vertical-align: middle;
+    margin-right: 10px;
+    color: white;
+    font-size: 24px;
+    float:right;
 }
 
-.panel-left .button {
-  background-color: black; /* Green */
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  font-size: 16px;
-  cursor: pointer;
-  width: 150px;
-  display: block;
-  margin: 5px;
+.login .button_login {
+    width: 100px; 
+    height: 100%;
+    float: right;
+}
+
+.left {
+    grid-area:left;
+    padding: 10px;
+    border-right: 1px solid gray;
+    background-color:black;
+}
+
+.left .button {
+    width: 100%;
+    background-color: black; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+
+    display: block;
+}
+
+.main {
+    grid-area:main;
+    background-color: chocolate;
+}
+.right {
+    grid-area:right;
+    background-color: darkgreen;
+}
+.right .table {
+    width: 100%;
+    height: 60px;
+    border-color: black;
+    background-color: black;
 
 }
 
-.panel-left .button:not(:last-child) {
-  border-bottom: none; /* Prevent double borders */
+.right .table img {
+    padding: 2px;
+    width: 100px;
+    height: 80px;
 }
 
-.panel-left .button:hover {
-  background-color: #2f2f2f;
+.right .table .text {
+    color: white;
+    font-size: 14px;
+    padding: 4px;
+    line-height: 180%;
 }
 
-.panel-left .button:focus {
-  background-color: blue;
-  outline:none!important;
+.bottom {
+    grid-area: bottom;
+    background-color: darkorange;
 }
 
-.panel-top .button {
-  position: absolute;
-  right: 10px;
-  width: 100px;
-  height: 50px;
-  border: none;
-  background-color: white;
-  outline:none!important;
-}
-
-.panel-top .button:active {
-  border: none;
-  background-color: #e2e2e2;
-  outline:none!important;
+.material-icons {
+    font-size:3rem;
+    color: white;
 }
 
 
-input {
-  align: center;
-  border:0;
-  outline:0;
-  width: 100%;
-  height: 100%;
-  font-size: 21px;
-  padding: 11px;
-  border-radius: 3px;
+.selected {
+    
+    background-color: blue;
 }
-input:focus {
-  outline:none!important;
-}
+  
 
 
-img {
-  width: 100px;
-  height: 80px;
-}
-
-table {
-  width: 100%;
-  border: 0px;
-
-}
-td {
-  color: white;
-  font-size: 14px;
-  padding: 2px;
+@media all and (max-width:575px){
+    .container {
+        grid-template-columns: 1fr;
+        grid-template-rows: 60px 60px 1fr 60px 60px;
+        grid-template-areas: 
+            "header" 
+            "left"
+            "main"
+            "bottom"
+            "right";
+    }
 }

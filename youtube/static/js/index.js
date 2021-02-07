@@ -33,12 +33,16 @@ function onPlayerReady(event) {
 }
 var playerState;
 function onPlayerStateChange(event) {
-    playerState = event.data == YT.PlayerState.ENDED ? '종료됨' :
-            event.data == YT.PlayerState.PLAYING ? '재생 중' :
-            event.data == YT.PlayerState.PAUSED ? '일시중지 됨' :
-            event.data == YT.PlayerState.BUFFERING ? '버퍼링 중' :
-            event.data == YT.PlayerState.CUED ? '재생준비 완료됨' :
-            event.data == -1 ? '시작되지 않음' : '예외';
+    playerState = event.data;
+
+    if (playerState== YT.PlayerState.ENDED) {
+        
+    } 
+//   if (playerState== YT.PlayerState.PLAYING) alert('재생 중');
+//  if (event.data == YT.PlayerState.PAUSED) alert('일시중지 됨');
+//    if (event.data == YT.PlayerState.BUFFERING) alert('버퍼링 중');
+//   if (event.data == YT.PlayerState.CUED) alert('재생준비 완료됨');
+//  if (event.data == -1) alert('예외');
 
     console.log('onPlayerStateChange 실행: ' + playerState);
 
@@ -66,15 +70,17 @@ function collectPlayCount(data) {
     }
 }
 
+
 /**
  * loadVideoById 함수는 지정한 동영상을 로드하고 재생한다.
  * 인수구문: loadVideoByUrl(mediaContentUrl:String, startSeconds:Number, suggestedQuality:String):Void
  * 개체구문: loadVideoByUrl({mediaContentUrl:String, startSeconds:Number, endSeconds:Number, suggestedQuality:String}):Void
  * loadVideoById 함수 뿐만 아니라 다른 대체적인 함수들도 개체구문이 기능이 더 많다.
  */
-function changeVideoAndStart(url) {
-    player.loadVideoById(url, 0, "large");
+function changeVideoAndStart(id) {
+   player.loadVideoById(id, 0, "large");
 }
+
 function changeVideoObjectAndStart() {
     // 0초부터 10초까지 재생을 시킨다.
     player.loadVideoById({
@@ -112,10 +118,66 @@ function changeVideoListObjectAndStart2() {
     });
 }
 
-$("#img").click(function(){
-   $(this).addClass('selected').siblings().removeClass('selected');
-});
+/*
+function selectedRow() {
+    var index,
+    table = document.getElementById("table");
+    
+    for (var i = 0; i < table.rows.length; i++)
+    {
+        table.rows[i].onclick = function()
+        {
+        if (typeof index !== "undefined") {
+            table.rows[index].classList.toggle("selected");
+        }
+        index = this.rowIndex;
 
-$('.ok').on('click', function(e){
-    alert($("#table tr.selected td:first").html());
+        //var video = document.video_list(index);
+       
+        this.classList.toggle("selected");
+        };
+    }
+}
+selectedRow();
+*/
+
+/*
+// 테이블의 Row 클릭시 값 가져오기
+$("#example-table-1 tr").click(function(){
+
+  alert("aaaaa");
+    var str = ""
+    var tdArr = new Array();    // 배열 선언
+
+    // 현재 클릭된 Row(<tr>)
+    var tr = $(this);
+    var td = tr.children();
+
+    // tr.text()는 클릭된 Row 즉 tr에 있는 모든 값을 가져온다.
+    alert("클릭한 Row의 모든 데이터 : "+tr.text());
+
+    // 반복문을 이용해서 배열에 값을 담아 사용할 수 도 있다.
+    td.each(function(i){
+        tdArr.push(td.eq(i).text());
+    });
+
+    alert("배열에 담긴 값 : "+tdArr);
+
+    // td.eq(index)를 통해 값을 가져올 수도 있다.
+
+    var no = td.eq(0).text();
+    var userid = td.eq(1).text();
+    var name = td.eq(2).text();
+    var email = td.eq(3).text();
+
+
+    str +=    " * 클릭된 Row의 td값 = No. : <font color='red'>" + no + "</font>" +
+            ", 아이디 : <font color='red'>" + userid + "</font>" +
+            ", 이름 : <font color='red'>" + name + "</font>" +
+            ", 이메일 : <font color='red'>" + email + "</font>";
+
+    $("#ex1_Result1").html(" * 클릭한 Row의 모든 데이터 = " + tr.text());
+    $("#ex1_Result2").html(str);
+
 });
+*/

@@ -1,50 +1,55 @@
-<!DOCTYPE html>
 {% load static %}
-<html>
-  <head>
-    <title>MTube Premium</title>
-    <meta charset="utf-8">
-    <link rel ="stylesheet" href={% static 'css/style.css' %} />
-
-  </head>
-  <body>
-    <div class="panel-top">
-      <div style="float: left; width:25%; height: 100%; background-color:black; color: white; font-size: 32px;">MTube Premium</div>
-      <div style="float: left; width:50%; height: 100%; background-color:black;">
-        <form class="form-inline" action="/youtube/results" style="height: 100%;" method="GET">
-          <input type="text" placeholder="Search..."/ name="search_key" value="{{ search_key }}">
-        </form>
-      </div>
-      <div style="float: right; width:25%; height: 100%; background-color:black;">
-        {% if user.is_authenticated %}
-        <button class="button" id="logout" onclick="location.href='{% url 'logout' %}'">{{ user.username }} 로그아웃</button>
-        {% else %}
-        <button class="button" id="login" onclick="location.href='{% url 'login' %}'">로그인</button>
-        {% endif %}
-      </div>
-    </div>
-    <div class="panel-container">
-      <div class="panel-left">
-        <button class="button">재생 목록</button>
-        <button class="button">시청 기록</button>
-      </div>
-      <div class="panel-center">
-        <!-- 주의: src링크에 enablejsapi=1 을 꼭 넣어주어야 한다. -->
-        <div id="player"></div>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>MTube Premium</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href={% static 'css/style.css' %}>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <div class="title">MTube Premium</div>
+                <form class="search" action="/youtube/results" method="GET">
+                    <input type="text" placeholder="Search..."/ name="search_key" value="{{ search_key }}">
+                    <button>Search</button>
+                </form>
+                <div class="login">
+                    {% if user.is_authenticated %}
+                    <button class="button_login" id="logout" onclick="location.href='{% url 'logout' %}'">로그아웃</button>
+                    {% else %}
+                    <button class="button_login" id="login" onclick="location.href='{% url 'login' %}'">로그인</button>
+                    {% endif %}
+                    <span>{{ user.username }}님</span>
+                </div>
+            </div>
+            <div class="left">
+                <button class="button">재생 목록</button>
+                <button class="button">시청 기록</button>
+            </div>
+            <div class="main">
+                <div id="player"></div>
+            </div>
+            <div class="bottom">
+                bottom
+            </div>
+            <div class="right">
+                {% if video_list %}
+                <table class="table" id = "table">
+                    {% for video in video_list %}
+                    <tr onclick = "changeVideoAndStart('{{ video.ID }}')">
+                        <td><image src="{{ video.image_url }}" ></td>
+                        <td class="text">{{ video.title }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% endif %}
+            </div>
+        </div>
         <script src={% static 'js/index.js' %}></script>
-      </div>
-      <div class="panel-right">
-        {% if video_list %}
-        <table id = "table">
-          {% for video in video_list %}
-          <tr onclick = "changeVideoAndStart('{{ video.ID }}')">
-            <td><image src="{{ video.image_url }}" ></td>
-            <td>{{ video.title }}</td>
-          </tr>
-          {% endfor %}
-        </table>
-        {% endif %}
-      </div>
-    </div>
-  </body>
+    </body>
 </html>
+
+
+
+
