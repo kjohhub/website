@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+    <title>MTube Premium_profile_delete</title>
+    <meta charset="utf-8">
+    <link rel ="stylesheet" href={% static 'css/mem_style.css' %}>
+        <script src="https://kit.fontawesome.com/78f8208a14.js" crossorigin="anonymous"></script>
+  </head>
+
+  <body>
+    <!--상단 바-->
+    <div class="header">
+      <div class="title">MTube Premium</div>
+      <div class="icon" onclick="location.href='{% url 'index' %}'" style="cursor:pointer;" ><i class="fas fa-home"></i></div>
+    </div>
+
+      <!--메인 화면-->
+    <section class="main_container">
+      <div class ="line_container">
+        <form method="POST" novalidate>
+          {% csrf_token %}
+          <div style="padding-top: 20px;" >
+            <div class="form_title_div"><p class="form_title_p">회원 탈퇴</p></div>
+            <p class="info">{{ user.user_id }}회원님의 계정이 삭제됩니다.<br>탈퇴시 개인정보 및 이용정보가 삭제되며 복구할 수 없습니다. <br>본인 인증을 위해 비밀번호를 입력한 후 하단의 유의사항 동의에 체크하세요.</p>
+            <label id="form_item_name" name="label_password" for="{{ password_form.password.id_for_label }}">{{ password_form.password.label }}</label>
+            {{ password_form.password }}
+            {% if password_form.password.errors %}
+            <script type="text/javascript">
+              document.getElementsByName('password')[0].setAttribute('class', 'form-control is-invalid')
+            </script>
+            {% for error in password_form.password.errors %}
+            <div class="info">
+              {{ error }}
+            </div>
+            {% endfor %}
+          {% endif %}
+
+          <label>
+              <input type="checkbox" name="ck" onClick="checkDisable(this.form)" style="margin-left:15px;">
+              <span id="form_item_name">유의사항 동의</span>
+          </label>
+
+          <button type="submit" name="bt" disabled="true" >탈퇴하기</button>
+        </form>
+
+        <script type="text/javascript">
+            function checkDisable(form) {
+                if (form.ck.checked == true) {
+                    form.bt.disabled = false;
+                } else {
+                    form.bt.disabled = true;
+                }
+            }
+        </script>
+      </div>
+    </section>
+  </body>
+</html>

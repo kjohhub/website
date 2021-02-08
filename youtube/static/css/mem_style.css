@@ -35,7 +35,7 @@ button:focus {
     outline: none;
     text-align: center;
 
-    margin: 10px;
+    margin: 15px;
     width: 94%;
     height: 44px;
     background-color:var(--grey-dark-color);
@@ -46,24 +46,30 @@ button:focus {
     font-weight: 500;
 }
 
-/*헤더부분*/
-header {
-    display: flex;
-    justify-content: space-between;
-    padding: var(--side-padding);
-    background-color: var(--black-color);
-    color: var(--white-color);
-    border-bottom: 1px solid var(--grey-dark-color);
+/* header */
+.header {
+    grid-area:header;
+    padding: 10px;
+    display:grid;
+    grid-template-columns: 250px 1fr 300px;
+    border-bottom: 1px solid gray;
+    background-color:black;
+    grid-template-areas:
+    ".title .search .login"
+}
+.header .title
+{
+    line-height: 50px;
+    vertical-align: middle;
+    color: white;
+    font-size: 30px;
+    letter-spacing: -1px;
 }
 
-header .title {
-    font-size: var(--font-large);
-    color: var(--white-color);
-}
-
-header .status {
-  margin-right: var(--side-padding);
-  color: var(--white-color);
+.header .icon {
+  line-height: 50px;
+  color: white;
+  font-size: 30px;
 }
 
 /*로그인 메인창*/
@@ -76,7 +82,7 @@ header .status {
 
 .line_container {
     color: var(--blue-color);
-    width: 400px;
+    width: 440px;
     height: 400px;
     margin: auto;
     border: 3px solid var(--white-color);
@@ -103,19 +109,20 @@ header .status {
     color: var(--white-color);
 }
 
-
-
-.form_group {
+.info {
+  font-size: 12px;
+  color: var(--blue-color);
+  margin: 9px;
 }
 
 #form_item_name{
-    padding: 15px;
+    padding: 10px;
     color: var(--grey-dark-color);
 }
 
 .form-control {
     margin: 15px;
-    width: 92%;
+    width: 94%;
     height: 30px;
     border: 1px solid;
     border-radius: 3px;
@@ -141,7 +148,7 @@ header .status {
 .line_container_signup{
     color: var(--blue-color);
     width: 400px;
-    height: 600px;
+    height: 540px;
     margin: auto;
     border: 3px solid var(--white-color);
 }
@@ -152,4 +159,9 @@ header .status {
   color: var(--grey-dark-color);
   margin-left:35%;
   text-decoration: none;
+}
+
+.control-label {
+  color: var(--blue-color);
+  font-size: 10px;
 }

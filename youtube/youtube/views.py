@@ -3,6 +3,7 @@ from youtube.models import videoTbl, listlistTbl, playlistTbl, historyTbl
 from django.contrib.auth import authenticate, login		#210205추가
 from youtube.forms import UserForm		#210205추가
 from .forms import CheckPasswordForm	#210208추가
+from youtube.decorators import *	#210208추가
 
 # index
 def index(request):
@@ -57,6 +58,7 @@ def signup(request):
     return render(request, 'youtube/signup.html', {'form': form})
 
 #210208 회원탈퇴
+@login_message_required
 def profile_delete_view(request):
     if request.method == 'POST':
         password_form = CheckPasswordForm(request.user, request.POST)
