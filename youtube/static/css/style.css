@@ -105,11 +105,11 @@
 
 .main {
     grid-area:main;
-    background-color: chocolate;
+    background-color: black;
 }
 .right {
     grid-area:right;
-    background-color: darkgreen;
+    background-color: black;
 }
 .right .table {
     width: 100%;
@@ -134,7 +134,7 @@
 
 .bottom {
     grid-area: bottom;
-    background-color: darkorange;
+    background-color: orange;
 }
 
 .material-icons {
@@ -142,13 +142,9 @@
     color: white;
 }
 
-
 .selected {
-    
     background-color: blue;
 }
-  
-
 
 @media all and (max-width:575px){
     .container {

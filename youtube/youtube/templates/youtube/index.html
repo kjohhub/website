@@ -3,7 +3,6 @@
     <head>
         <meta charset="UTF-8">
         <title>MTube Premium</title>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href={% static 'css/style.css' %}>
     </head>
     <body>
@@ -37,7 +36,7 @@
                 {% if video_list %}
                 <table class="table" id = "table">
                     {% for video in video_list %}
-                    <tr onclick = "trClick(this, '{{video.id}}')">
+                    <tr id = "{{video.id}}" onclick = "trClick(this)">
                         <td><image src="{{ video.image_url }}" ></td>
                         <td class="text">{{ video.title }}</td>
                     </tr>
@@ -46,8 +45,7 @@
                 {% endif %}
             </div>
         </div>
-        <!--script src="http://code.jquery.com/jquery-latest.js"></script-->
-        <script type="text/javascript" src={% static 'js/index.js' %}></script>
+        <script type="text/javascript" language="javascript" src={% static 'js/index.js' %}></script>
     </body>
 </html>
 

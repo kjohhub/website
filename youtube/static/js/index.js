@@ -7,7 +7,7 @@ var tag = document.createElement('script');
 tag.src = "http://www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
+var current_idx = 0;
 
 /**
  * onYouTubeIframeAPIReady 함수는 필수로 구현해야 한다.
@@ -39,7 +39,14 @@ function onPlayerStateChange(event) {
     playerState = event.data;
 
     if (playerState== YT.PlayerState.ENDED) {
-        
+        var max = table.rows.length - 1;
+        if (current_idx < max)
+            current_idx += 1;
+        else
+            current_idx = 0;
+
+        changeVideoAndStart(table.rows[current_idx].id);
+        updateTable();
     } 
 //   if (playerState== YT.PlayerState.PLAYING) alert('재생 중');
 //  if (event.data == YT.PlayerState.PAUSED) alert('일시중지 됨');
@@ -119,16 +126,23 @@ function changeVideoListObjectAndStart2() {
         'startSeconds': 0,
         'suggestedQuality': 'small'
     });
-
 }
 
-function trClick(tr, id) {
-
-    var index = tr.rowIndex - 1;
-
-    changeVideoAndStart(id);
+function trClick(tr) {
+    current_idx = tr.rowIndex;
+    changeVideoAndStart(tr.id);
+    updateTable();
 }
 
+function updateTable() {
+    var rows = document.getElementById("table").getElementsByTagName("tr");
+    for (var i = 0; i < rows.length; i++) {
+        if (i == current_idx)
+            rows[i].classList.add("selected");
+        else
+            rows[i].classList.remove("selected");
+    }
+}
 
 function sendPost(action, params) {
 
@@ -148,6 +162,7 @@ function sendPost(action, params) {
 	document.body.appendChild(form);
 	form.submit();
 }
+
 
 /*
 function selectedRow() {
@@ -169,7 +184,7 @@ function selectedRow() {
         };
     }
 }
-selectedRow();
+
 */
 
 /*
