@@ -16,15 +16,25 @@
                 <div class="login">
                     {% if user.is_authenticated %}
                     <button class="button_login" id="logout" onclick="location.href='{% url 'logout' %}'">로그아웃</button>
+                    <span class="user_name">{{ user.username }}님</span>
+                    <a href="{% url 'youtube:profile_delete' %}">회원탈퇴</a>
                     {% else %}
                     <button class="button_login" id="login" onclick="location.href='{% url 'login' %}'">로그인</button>
+                    <span class="user_name">손님</span>
                     {% endif %}
-                    <span>{{ user.username }}님</span>
                 </div>
             </div>
             <div class="left">
-                <button class="button">재생 목록</button>
-                <button class="button">시청 기록</button>
+                {% if user.is_authenticated %}
+                {% for list in list_list %}
+                <form id = "{{ list.id }}" action="/youtube/playlist" method="GET">
+                    <button class="button" type="submit" > {{ list.listName }}</button>
+                </form>
+                {% endfor %}
+                <form action="/youtube/history" method="GET">
+                    <button class="button" type="submit" >시청 기록</button>
+                </form>
+                {% endif %}
             </div>
             <div class="main">
                 <div id="player"></div>
@@ -36,7 +46,7 @@
                 {% if video_list %}
                 <table class="table" id = "table">
                     {% for video in video_list %}
-                    <tr id = "{{video.id}}" onclick = "trClick(this)">
+                    <tr id = "{{video.id}}" onclick = "itemClicked(this)">
                         <td><image src="{{ video.image_url }}" ></td>
                         <td class="text">{{ video.title }}</td>
                     </tr>
@@ -48,7 +58,3 @@
         <script type="text/javascript" language="javascript" src={% static 'js/index.js' %}></script>
     </body>
 </html>
-
-
-
-
