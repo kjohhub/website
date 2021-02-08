@@ -37,7 +37,7 @@
                 {% if video_list %}
                 <table class="table" id = "table">
                     {% for video in video_list %}
-                    <tr onclick = "changeVideoAndStart('{{ video.ID }}')">
+                    <tr onclick = "trClick(this, '{{video.id}}')">
                         <td><image src="{{ video.image_url }}" ></td>
                         <td class="text">{{ video.title }}</td>
                     </tr>
@@ -46,7 +46,8 @@
                 {% endif %}
             </div>
         </div>
-        <script src={% static 'js/index.js' %}></script>
+        <!--script src="http://code.jquery.com/jquery-latest.js"></script-->
+        <script type="text/javascript" src={% static 'js/index.js' %}></script>
     </body>
 </html>
 

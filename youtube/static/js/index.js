@@ -1,3 +1,5 @@
+
+
 /**
  * Youtube API 로드
  */
@@ -5,6 +7,7 @@ var tag = document.createElement('script');
 tag.src = "http://www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
 
 /**
  * onYouTubeIframeAPIReady 함수는 필수로 구현해야 한다.
@@ -78,7 +81,7 @@ function collectPlayCount(data) {
  * loadVideoById 함수 뿐만 아니라 다른 대체적인 함수들도 개체구문이 기능이 더 많다.
  */
 function changeVideoAndStart(id) {
-   player.loadVideoById(id, 0, "large");
+    player.loadVideoById(id, 0, "large");
 }
 
 function changeVideoObjectAndStart() {
@@ -116,6 +119,34 @@ function changeVideoListObjectAndStart2() {
         'startSeconds': 0,
         'suggestedQuality': 'small'
     });
+
+}
+
+function trClick(tr, id) {
+
+    var index = tr.rowIndex - 1;
+
+    changeVideoAndStart(id);
+}
+
+
+function sendPost(action, params) {
+
+	var form = document.createElement('form');
+	form.setAttribute('method', 'post');
+	form.setAttribute('action', action);
+	document.charset = "utf-8";
+	for ( var key in params) {
+
+		var hiddenField = document.createElement('input');
+		hiddenField.setAttribute('type', 'hidden');
+		hiddenField.setAttribute('name', key);
+		hiddenField.setAttribute('value', params[key]);
+		form.appendChild(hiddenField);
+	}
+
+	document.body.appendChild(form);
+	form.submit();
 }
 
 /*

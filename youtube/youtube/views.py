@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect 		#210205 redirect부분 추가
-from youtube.models import memberTbl, videoTbl, playlistTbl, historyTbl
+from youtube.models import videoTbl, listlistTbl, playlistTbl, historyTbl
 from django.contrib.auth import authenticate, login		#210205추가
 from youtube.forms import UserForm		#210205추가
 
