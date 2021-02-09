@@ -85,3 +85,10 @@ def profile_delete_view(request):
         password_form = CheckPasswordForm(request.user)
 
     return render(request, 'youtube/profile_delete.html', {'password_form':password_form})
+
+#210209 동영상 관리자창으로 이동
+def manage_video(request):
+    context = {}
+    if request.user.is_authenticated:
+        video_list = videoTbl.objects.all()
+    return render(request, 'youtube/manage_video.html', context)

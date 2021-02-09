@@ -14,4 +14,5 @@ urlpatterns = [
     path('history', views.history, name='history'),
     path('signup/', views.signup, name='signup'),
     path('profile/delete/', views.profile_delete_view, name='profile_delete'),
+    path('manage_video/', views.manage_video, name='manage_video'),
 ]
