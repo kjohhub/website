@@ -68,11 +68,15 @@
 }
 
 .login .user_name {
-    line-height: 50px;
-    vertical-align: top;
+    line-height: 25px;
+    vertical-align: center;
     margin-right: 10px;
     color: white;
-    font-size: 13px;
+    font-size: 16px;
+    float: right;
+}
+.login a:visited {
+    color: blue;
 }
 
 .login .button_login {
@@ -135,7 +139,7 @@
 
 .bottom {
     grid-area: bottom;
-    background-color: orange;
+    background-color: green;
 }
 
 .material-icons {

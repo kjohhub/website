@@ -3,7 +3,6 @@
     <head>
         <meta charset="UTF-8">
         <title>MTube Premium</title>
-        <link rel="icon" href="data:;base64,iVBORw0KGgo=">
         <link rel="stylesheet" href={% static 'css/style.css' %}>  
     </head>
     <body>
@@ -17,8 +16,8 @@
                 <div class="login">
                     {% if user.is_authenticated %}
                     <button class="button_login" id="logout" onclick="location.href='{% url 'logout' %}'">로그아웃</button>
-                    <span class="user_name">{{ user.username }}님</span>
-                    <a href="{% url 'youtube:profile_delete' %}">회원탈퇴</a>
+                    <span class="user_name">{{ user.username }}님<br><a href="{% url 'youtube:profile_delete' %}">회원탈퇴</a></span>
+                    
                     {% else %}
                     <button class="button_login" id="login" onclick="location.href='{% url 'login' %}'">로그인</button>
                     <span class="user_name">손님</span>
