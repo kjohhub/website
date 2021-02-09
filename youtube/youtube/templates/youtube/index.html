@@ -3,14 +3,15 @@
     <head>
         <meta charset="UTF-8">
         <title>MTube Premium</title>
-        <link rel="stylesheet" href={% static 'css/style.css' %}>  
+        <link rel="stylesheet" href={% static 'css/style.css' %}>
+        <link rel="stylesheet" href={% static 'css/popup.css' %}
     </head>
     <body>
         <div class="container">
             <div class="header">
                 <div class="title">MTube Premium</div>
                 <form class="search" action="/youtube/results" method="GET">
-                    <input type="text" placeholder="Search..."/ name="search_key" value="{{ search_key }}">
+                    <input type="text" placeholder="Search..."/ name="search_key">
                     <button>Search</button>
                 </form>
                 <div class="login">
@@ -27,13 +28,21 @@
                 {% if user.is_authenticated %}
                 {% for list in play_list %}
                 <form id = "{{ list.id }}" action="/youtube/playlist" method="GET">
-                    <button class="button" type="submit" > {{ list.listName }}</button>
+                    <button class="button" type="submit" > {{ list.list_name }}</button>
                 </form>
                 {% endfor %}
                 {% if play_list.count < 4 %}
-                <form id = "{{ list.id }}" action="/youtube/playlist" method="GET">
-                    <button class="button2" type="submit"> 목록 추가</button>
-                </form>
+                <button class="button2" type="button" onClick="openForm()"> 목록 추가</button>
+                <div class="playListPopup">
+                    <div class="formPopup" id="popupForm">
+                        <form action="/youtube/playlist/add" class="formContainer" method="POST">
+                            {% csrf_token %}
+                            <input type="text" id="name" placeholder="재생목록 이름" name="name" required>
+                            <button type="submit" class="btn">추가</button>
+                            <button type="button" class="btn cancel" onclick="closeForm()">취소</button>
+                        </form>
+                    </div>
+                </div>
                 {% endif %}
                 <br><br>
                 <form action="/youtube/history" method="GET">

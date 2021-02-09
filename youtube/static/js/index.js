@@ -163,7 +163,13 @@ function sendPost(action, params) {
 	form.submit();
 }
 
-
+function openForm() {
+    document.getElementById("popupForm").style.display = "block";
+  }
+  function closeForm() {
+    document.getElementById("popupForm").style.display = "none";
+  }
+    
 /*
 function selectedRow() {
     var index,

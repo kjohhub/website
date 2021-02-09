@@ -74,6 +74,7 @@
     color: white;
     font-size: 16px;
     float: right;
+    text-align: right;
 }
 .login a:visited {
     color: blue;
@@ -175,3 +176,5 @@
             "right";
     }
 }
+
+
