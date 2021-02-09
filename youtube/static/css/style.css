@@ -44,13 +44,13 @@
 .header .search input {
     border: 0px;
     outline: none;
-    width: calc(100% - 103px);
-    height: 50px;
-    font-size: 21px;
+    width: calc(100% - 102px);
+    height: 48px;
+    font-size: 18px;
+    margin: 1px;
     padding: 9px;
-    border-radius: 3px;
     float: left;
-  }
+}
 .header .search input:focus {
     outline:none!important;
 }
@@ -58,7 +58,7 @@
 .header .search > button {
     width: 100px; 
     height: 50px;
-    margin-left: 3px;
+    margin-left: 0px;
     float: left;
 }
 
@@ -67,13 +67,12 @@
     height: 100%;
 }
 
-.login > span {
+.login .user_name {
     line-height: 50px;
-    vertical-align: middle;
+    vertical-align: top;
     margin-right: 10px;
     color: white;
-    font-size: 24px;
-    float:right;
+    font-size: 13px;
 }
 
 .login .button_login {
@@ -102,6 +101,9 @@
 
     display: block;
 }
+.left .button:checked {
+    background-color: blue;
+}
 
 .main {
     grid-area:main;
@@ -116,7 +118,6 @@
     height: 60px;
     border-color: black;
     background-color: black;
-
 }
 
 .right .table img {

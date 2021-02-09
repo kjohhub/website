@@ -128,7 +128,7 @@ function changeVideoListObjectAndStart2() {
     });
 }
 
-function trClick(tr) {
+function itemClicked(tr) {
     current_idx = tr.rowIndex;
     changeVideoAndStart(tr.id);
     updateTable();

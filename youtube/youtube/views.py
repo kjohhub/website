@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login		#210205추가
 from youtube.forms import UserForm		#210205추가
 from .forms import CheckPasswordForm	#210208추가
 from youtube.decorators import *	#210208추가
+from django.db.models import Subquery
 
 # index
 def index(request):
@@ -34,9 +35,11 @@ def history(request):
     context = {}
     if request.user.is_authenticated:
         context['list_list'] = listlistTbl.objects.filter(userid=request.user.id)
-        video_list = videoTbl.objects.all()
+        histo_list = historyTbl.objects.filter(userid=request.user.id)
+        video_list = videoTbl.objects.filter(id__in=Subquery(histo_list.values('videoid')))
         context['video_list'] = video_list
     return render(request, 'youtube/index.html', context)
+
 
 
 #210205추가 회원가입페이지
