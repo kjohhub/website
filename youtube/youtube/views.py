@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404 		#210205 redirect부분 추가
-from youtube.models import videoTbl, listlistTbl, playlistTbl, historyTbl
+from youtube.models import videoTbl, playlistTbl, playlistItemTbl, historyTbl
 from django.contrib.auth import authenticate, login		#210205추가
 from youtube.forms import UserForm		#210205추가
 from .forms import CheckPasswordForm	#210208추가
@@ -10,14 +10,14 @@ from django.db.models import Subquery
 def index(request):
     context = {}
     if request.user.is_authenticated:
-        list_list = listlistTbl.objects.filter(userid=request.user.id)
-        context['list_list'] = list_list
+        play_list = playlistTbl.objects.filter(userid=request.user.id)
+        context['play_list'] = play_list
     return render(request, 'youtube/index.html', context)
 
 def results(request):
     context = {}
     if request.user.is_authenticated:
-        context['list_list'] = listlistTbl.objects.filter(userid=request.user.id)
+        context['play_list'] = playlistTbl.objects.filter(userid=request.user.id)
     search_key = request.GET.get('search_key')
     if search_key:
         context['video_list'] = videoTbl.objects.filter(title__icontains=search_key)
@@ -26,7 +26,7 @@ def results(request):
 def playlist(request):
     context = {}
     if request.user.is_authenticated:
-        context['list_list'] = listlistTbl.objects.filter(userid=request.user.id)
+        context['play_list'] = playlistTbl.objects.filter(userid=request.user.id)
         video_list = videoTbl.objects.all()
         context['video_list'] = video_list
     return render(request, 'youtube/index.html', context)
@@ -34,7 +34,7 @@ def playlist(request):
 def history(request):
     context = {}
     if request.user.is_authenticated:
-        context['list_list'] = listlistTbl.objects.filter(userid=request.user.id)
+        context['play_list'] = playlistTbl.objects.filter(userid=request.user.id)
         histo_list = historyTbl.objects.filter(userid=request.user.id)
         video_list = videoTbl.objects.filter(id__in=Subquery(histo_list.values('videoid')))
         context['video_list'] = video_list

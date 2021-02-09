@@ -17,7 +17,6 @@
                     {% if user.is_authenticated %}
                     <button class="button_login" id="logout" onclick="location.href='{% url 'logout' %}'">로그아웃</button>
                     <span class="user_name">{{ user.username }}님<br><a href="{% url 'youtube:profile_delete' %}">회원탈퇴</a></span>
-                    
                     {% else %}
                     <button class="button_login" id="login" onclick="location.href='{% url 'login' %}'">로그인</button>
                     <span class="user_name">손님</span>
@@ -26,11 +25,17 @@
             </div>
             <div class="left">
                 {% if user.is_authenticated %}
-                {% for list in list_list %}
+                {% for list in play_list %}
                 <form id = "{{ list.id }}" action="/youtube/playlist" method="GET">
                     <button class="button" type="submit" > {{ list.listName }}</button>
                 </form>
                 {% endfor %}
+                {% if play_list.count < 4 %}
+                <form id = "{{ list.id }}" action="/youtube/playlist" method="GET">
+                    <button class="button2" type="submit"> 목록 추가</button>
+                </form>
+                {% endif %}
+                <br><br>
                 <form action="/youtube/history" method="GET">
                     <button class="button" type="submit" >시청 기록</button>
                 </form>

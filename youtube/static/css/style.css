@@ -94,15 +94,27 @@
 
 .left .button {
     width: 100%;
-    background-color: black; /* Green */
+    margin: 2px;
+    background-color: #333; /* Green */
     border: none;
     color: white;
-    padding: 15px 32px;
+    padding: 15px 10px;
     text-align: center;
     text-decoration: none;
-    font-size: 16px;
+    box-shadow: none;
+    font-size: 14px;
     cursor: pointer;
-
+    display: block;
+}
+.left .button2 {
+    width: 100%;
+    margin: 2px;
+    background-color: black; /* Green */
+    border: 1px dashed white;
+    color: white;
+    padding: 15px 10px;
+    font-size: 14px;
+    cursor: pointer;
     display: block;
 }
 .left .button:checked {
@@ -139,7 +151,7 @@
 
 .bottom {
     grid-area: bottom;
-    background-color: green;
+    background-color: purple;
 }
 
 .material-icons {
