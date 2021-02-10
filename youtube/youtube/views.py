@@ -8,7 +8,7 @@ from django.db.models import Subquery
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.http import JsonResponse
-
+from django.views.decorators.csrf import csrf_exempt
 
 # index
 def empty():
@@ -55,8 +55,16 @@ def playlist_rename(request):
 def playlist_delete(request):
     pass
 
+@csrf_exempt
 def playlist_insert_video(request):
-    pass
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            listid = request.POST.get('listid')
+            videoid = request.POST.get('videoid')
+            item = playlistItemTbl(listid_id=listid, videoid_id=videoid)
+            item.save()
+            return HttpResponse(status=200)
+    return HttpResponse(status=201)
 
 def playlist_delete_video(request):
     pass
@@ -70,15 +78,16 @@ def history(request):
         context['video_list'] = video_list
     return render(request, 'youtube/index.html', context)
 
+@csrf_exempt
 def history_insert_video(request):
     if request.user.is_authenticated:
         if request.method == "POST":
             user = request.user
             videoid = request.POST.get('videoid')
-            print("userid: " + str(user.id) + ", videoid:" + videoid)
             history = historyTbl(userid=user, videoid_id=videoid)
             history.save()
-    return JsonResponse({'status': 'ok'})
+            return HttpResponse(status=200)
+    return HttpResponse(status=201)
 
 def history_delete_video(request):
     pass

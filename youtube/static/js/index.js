@@ -1,13 +1,10 @@
-
-
-/**
- * Youtube API 로드
- */
 var tag = document.createElement('script');
 tag.src = "http://www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+var list_type = 0;      // 0:none, 1:search result, 2: playlist, 3: history
 var current_idx = 0;
+var current_videoid = '';
 
 /**
  * onYouTubeIframeAPIReady 함수는 필수로 구현해야 한다.
@@ -15,6 +12,8 @@ var current_idx = 0;
  * 페이지 로드 시 표시할 플레이어 개체를 만들어야 한다.
  */
 var player;
+var playerState;
+
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
         height: '100%',
@@ -34,7 +33,6 @@ function onYouTubeIframeAPIReady() {
 function onPlayerReady(event) {
     console.log('onPlayerReady 실행');
 }
-var playerState;
 function onPlayerStateChange(event) {
     playerState = event.data;
 
@@ -80,52 +78,48 @@ function collectPlayCount(data) {
     }
 }
 
-
-/**
- * loadVideoById 함수는 지정한 동영상을 로드하고 재생한다.
- * 인수구문: loadVideoByUrl(mediaContentUrl:String, startSeconds:Number, suggestedQuality:String):Void
- * 개체구문: loadVideoByUrl({mediaContentUrl:String, startSeconds:Number, endSeconds:Number, suggestedQuality:String}):Void
- * loadVideoById 함수 뿐만 아니라 다른 대체적인 함수들도 개체구문이 기능이 더 많다.
- */
+// 영상을 재생한다.
 function changeVideoAndStart(id) {
-
-    /*
-    var form = document.postForm;
-    form.submit(function(ev){
-        $.ajax({
-            url: '/youtube/history/insert_video/',
-            type: 'POST',
-            data: {videoid: id},
-            dataType: 'text',
-            success: function (data) {
-                alert('ok');
-            }
-
-        })
-    })
-    */
+    current_vid = id;
     player.loadVideoById(id, 0, "large");
-
-    
- 
-    
-
-    /*
-    var form = document.postForm;
-    form.action = '/youtube/history/insert_video/';
-    var hiddenField = document.createElement('input');
-        hiddenField.setAttribute('type', 'hidden');
-        hiddenField.setAttribute('name', 'videoid');
-        hiddenField.setAttribute('value', id);
-        form.appendChild(hiddenField);
-    form.submit();
-    */
+    insertVideoToHistory();     // 시청기록에 추가한다.
 }
 
-$('#postForm').submit(function(e){
-    $.post('your/url', $(this).serialize(), function(e){  });
-    e.preventDefault();
-});
+// 플레이중인 영상을 시청기록에 추가한다.
+function insertVideoToHistory() {
+    $.ajax({
+        type: "POST",
+        url: "/youtube/history/insert_video/",
+        dataType: "text",
+        data: {
+            'videoid': current_vid, 
+            'csrfmiddlewaretoken': '{{ csrf_token }}'
+        },
+        success: function(response){ 
+        },
+        error: function(request, status, error){
+        },
+    });
+}
+
+// 플레이중인 영상을 재생목록에 추가한다.
+function insertVideoToPlaylist(listid) {
+    var videoid = current_vid
+    $.ajax({
+        type: "POST",
+        url: "/youtube/playlist/insert_video/",
+        data: {
+            'listid': listid, 
+            'videoid': videoid, 
+            'csrfmiddlewaretoken': '{{ csrf_token }}'
+        },
+        dataType: "text",
+        success: function(response){ 
+        },
+        error: function(request, status, error){ 
+        },
+    });
+}
 
 function changeVideoObjectAndStart() {
     // 0초부터 10초까지 재생을 시킨다.
@@ -170,6 +164,10 @@ function itemClicked(tr) {
     updateTable();
 }
 
+function itemDelete() {
+    
+}
+
 function updateTable() {
     var rows = document.getElementById("table").getElementsByTagName("tr");
     for (var i = 0; i < rows.length; i++) {
@@ -180,102 +178,10 @@ function updateTable() {
     }
 }
 
-// post 전송
-
-/*
-function sendPost(action, params) {
-	var form = document.createElement('form');
-	form.setAttribute('method', 'post');
-    form.setAttribute('action', action);
-    
-	document.charset = "utf-8";
-	for ( var key in params.keys()) {
-        console.log(key);
-        console.log(params[key]);
-		var hiddenField = document.createElement('input');
-		hiddenField.setAttribute('type', 'hidden');
-		hiddenField.setAttribute('name', key);
-		hiddenField.setAttribute('value', params[key]);
-		form.appendChild(hiddenField);
-    }
-    
-    var csrfField = document.createElement("input");
-    csrfField.setAttribute("type", "hidden");
-    csrfField.setAttribute("name", "_csrf");
-    form.appendChild(csrfField);
-
-	document.body.appendChild(form);
-	form.submit();
-}
-*/
-
 function openForm() {
     document.getElementById("popupForm").style.display = "block";
-  }
-  function closeForm() {
-    document.getElementById("popupForm").style.display = "none";
-  }
-    
-/*
-function selectedRow() {
-    var index,
-    table = document.getElementById("table");
-    
-    for (var i = 0; i < table.rows.length; i++)
-    {
-        table.rows[i].onclick = function()
-        {
-        if (typeof index !== "undefined") {
-            table.rows[index].classList.toggle("selected");
-        }
-        index = this.rowIndex;
-
-        //var video = document.video_list(index);
-       
-        this.classList.toggle("selected");
-        };
-    }
 }
 
-*/
-
-/*
-// 테이블의 Row 클릭시 값 가져오기
-$("#example-table-1 tr").click(function(){
-
-  alert("aaaaa");
-    var str = ""
-    var tdArr = new Array();    // 배열 선언
-
-    // 현재 클릭된 Row(<tr>)
-    var tr = $(this);
-    var td = tr.children();
-
-    // tr.text()는 클릭된 Row 즉 tr에 있는 모든 값을 가져온다.
-    alert("클릭한 Row의 모든 데이터 : "+tr.text());
-
-    // 반복문을 이용해서 배열에 값을 담아 사용할 수 도 있다.
-    td.each(function(i){
-        tdArr.push(td.eq(i).text());
-    });
-
-    alert("배열에 담긴 값 : "+tdArr);
-
-    // td.eq(index)를 통해 값을 가져올 수도 있다.
-
-    var no = td.eq(0).text();
-    var userid = td.eq(1).text();
-    var name = td.eq(2).text();
-    var email = td.eq(3).text();
-
-
-    str +=    " * 클릭된 Row의 td값 = No. : <font color='red'>" + no + "</font>" +
-            ", 아이디 : <font color='red'>" + userid + "</font>" +
-            ", 이름 : <font color='red'>" + name + "</font>" +
-            ", 이메일 : <font color='red'>" + email + "</font>";
-
-    $("#ex1_Result1").html(" * 클릭한 Row의 모든 데이터 = " + tr.text());
-    $("#ex1_Result2").html(str);
-
-});
-*/
+function closeForm() {
+    document.getElementById("popupForm").style.display = "none";
+}
