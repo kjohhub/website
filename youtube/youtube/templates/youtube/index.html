@@ -27,8 +27,9 @@
             <div class="left">
                 {% if user.is_authenticated %}
                 {% for list in play_list %}
-                <form id = "{{ list.id }}" action="/youtube/playlist" method="GET">
-                    <button class="button" type="submit" > {{ list.list_name }}</button>
+                <form id = "{{ list.id }}" action="/youtube/playlist" method="POST">
+                    {% csrf_token %}
+                    <button class="button" type="submit" name="listid" value="{{ list.id }}"> {{ list.list_name }}</button>
                 </form>
                 {% endfor %}
                 {% if play_list.count < 4 %}

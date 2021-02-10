@@ -25,34 +25,31 @@ def results(request):
 
 def playlist(request):
     context = {}
-    if request.user.is_authenticated:
+    if request.method == "POST":
+        list_id = request.POST.get('listid')
+        print(list_id)
         context['play_list'] = playlistTbl.objects.filter(userid=request.user.id)
-        video_list = videoTbl.objects.all()
+        play_item = playlistItemTbl.objects.filter(listid=list_id)
+        video_list = videoTbl.objects.filter(id__in=Subquery(play_item.values('videoid')))
         context['video_list'] = video_list
     return render(request, 'youtube/index.html', context)
+
+def playlist_add(request):
+    if request.method == "POST":
+        name = request.POST.get('name')
+        user = request.user
+        playlist = playlistTbl(list_name=name, userid=user)
+        playlist.save()
+    return redirect('/')
 
 def history(request):
     context = {}
     if request.user.is_authenticated:
-        
         context['play_list'] = playlistTbl.objects.filter(userid=request.user.id)
         histo_list = historyTbl.objects.filter(userid=request.user.id)
         video_list = videoTbl.objects.filter(id__in=Subquery(histo_list.values('videoid')))
         context['video_list'] = video_list
     return render(request, 'youtube/index.html', context)
-
-
-def playlist_add(request):
-    context = {}
-    if request.method == "POST":
-        if request.user.is_authenticated:
-            list_name = request.POST.get('name')        
-            plist = playlistTbl(list_name=list_name, userid = request.user)
-            plist.save()
-            context['play_list'] = playlistTbl.objects.filter(userid=request.user.id)
-
-    return render(request, 'youtube/index.html', context)
-
 
 #210205추가 회원가입페이지
 def signup(request):

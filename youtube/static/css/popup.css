@@ -7,8 +7,8 @@
   .formPopup {
     display: none;
     position: fixed;
-    left: 326px;
-    top: 64px;
+    left: 180px;
+    top: 82px;
     border: 1px solid white;
     z-index: 9;
   }
