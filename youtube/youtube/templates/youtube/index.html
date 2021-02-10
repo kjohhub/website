@@ -30,13 +30,13 @@
             <div class="left">
                 {% if user.is_authenticated %}
                     <form action="/youtube/history/" method="GET">
-                        <button class="button" type="submit">시청 기록</button>
+                        <button class="button1" type="submit">시청 기록</button>
                     </form>
                     <br>
                     {% for list in play_list %}
                     <form id = "{{ list.id }}" action="/youtube/playlist/" method="POST">
                         {% csrf_token %}
-                        <button class="button" type="submit" name="listid" value="{{ list.id }}"> {{ list.list_name }}</button>
+                        <button class="button1" type="submit" name="listid" value="{{ list.id }}"> {{ list.list_name }}</button>
                     </form>
                     {% endfor %}
                     {% if play_list.count < 8 %}
@@ -58,32 +58,11 @@
                 <div id="player"></div>
             </div>
             <div class="bottom">
-                <!--
-                <button class="button2" type="button" onClick="AjaxFormSubmit()"> 재생목록에 추가</button>
-                <div class="playListPopup">
-                    <div class="formPopup" id="popupForm">
-                        <form action="/youtube/playlist/insert/" class="formContainer" method="POST">
-                            {% csrf_token %}
-                            <input type="text" id="name" placeholder="재생목록 이름" name="name" required>
-                            <button type="submit" class="btn">추가</button>
-                            <button type="button" class="btn cancel" onclick="closeForm()">취소</button>
-                        </form>
-                    </div>
-                </div>
-                                <form id = "" action="/youtube/playlist/insert_video/" method="POST">
-                    {% csrf_token %}
-                    <input type="hidden" name="listid" value="{{ list.id }}">
-                    <input type="hidden" name="videoid" value="0-q1KafFCLU">
-                    <button class="button" type="submit">{{ list.list_name }}<br>추가</button>
-                </form>
-                -->
-                
                 {% for list in play_list %}
-                <button class="insert" type="button" onclick="insertVideoToPlaylist('{{ list.id }}')">
+                <button class="button3" type="button" onclick="insertVideoToPlaylist('{{ list.id }}')">
                     {{ list.list_name }}<br>추가
                 </button>
                 {% endfor %}
-                
             </div>
             <div class="right">
                 <div class="title">검색 결과</div>

@@ -92,7 +92,7 @@
     background-color:black;
 }
 
-.left .button {
+.left .button1 {
     width: 100%;
     margin: 4px;
     background-color: #333; /* Green */
@@ -137,7 +137,7 @@
     margin-top: 8px;
     color: white;
     text-align: center;
-    border: 1px solid #333;
+    border: none;
     background-color: #333;
 }
 .right .table {
@@ -184,7 +184,7 @@
     height: 100%;
 }
 
-.bottom .insert {
+.bottom .button3 {
     width: 120px;
     margin-top: 5px;
     margin-bottom: 5px;
