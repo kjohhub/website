@@ -5,12 +5,13 @@
         <title>MTube Premium</title>
         <link rel="stylesheet" href={% static 'css/style.css' %}>
         <link rel="stylesheet" href={% static 'css/popup.css' %}
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
     </head>
     <body>
         <div class="container">
             <div class="header">
                 <div class="title">MTube Premium</div>
-                <form class="search" action="/youtube/results" method="GET">
+                <form class="search" action="/youtube/results/" method="GET">
                     <input type="text" placeholder="Search..."/ name="search_key">
                     <button>Search</button>
                 </form>
@@ -27,7 +28,7 @@
             <div class="left">
                 {% if user.is_authenticated %}
                 {% for list in play_list %}
-                <form id = "{{ list.id }}" action="/youtube/playlist" method="POST">
+                <form id = "{{ list.id }}" action="/youtube/playlist/" method="POST">
                     {% csrf_token %}
                     <button class="button" type="submit" name="listid" value="{{ list.id }}"> {{ list.list_name }}</button>
                 </form>
@@ -36,7 +37,7 @@
                 <button class="button2" type="button" onClick="openForm()"> 목록 추가</button>
                 <div class="playListPopup">
                     <div class="formPopup" id="popupForm">
-                        <form action="/youtube/playlist/add" class="formContainer" method="POST">
+                        <form action="/youtube/playlist/insert/" class="formContainer" method="POST">
                             {% csrf_token %}
                             <input type="text" id="name" placeholder="재생목록 이름" name="name" required>
                             <button type="submit" class="btn">추가</button>
@@ -46,7 +47,7 @@
                 </div>
                 {% endif %}
                 <br><br>
-                <form action="/youtube/history" method="GET">
+                <form action="/youtube/history/" method="GET">
                     <button class="button" type="submit" >시청 기록</button>
                 </form>
                 {% endif %}
@@ -61,7 +62,7 @@
                 {% if video_list %}
                 <table class="table" id = "table">
                     {% for video in video_list %}
-                    <tr id = "{{video.id}}" onclick = "itemClicked(this)">
+                    <tr id = "{{video.videoid}}" onclick = "itemClicked(this)">
                         <td><image src="{{ video.image_url }}" ></td>
                         <td class="text">{{ video.title }}</td>
                     </tr>
@@ -70,6 +71,10 @@
                 {% endif %}
             </div>
         </div>
+        <form name="postForm" action="" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="videoid">
+        </form>
         <script type="text/javascript" language="javascript" src={% static 'js/index.js' %}></script>
     </body>
 </html>

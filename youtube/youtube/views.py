@@ -5,8 +5,15 @@ from youtube.forms import UserForm		#210205추가
 from .forms import CheckPasswordForm	#210208추가
 from youtube.decorators import *	#210208추가
 from django.db.models import Subquery
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from django.http import JsonResponse
+
 
 # index
+def empty():
+    return
+
 def index(request):
     context = {}
     if request.user.is_authenticated:
@@ -30,26 +37,51 @@ def playlist(request):
         print(list_id)
         context['play_list'] = playlistTbl.objects.filter(userid=request.user.id)
         play_item = playlistItemTbl.objects.filter(listid=list_id)
-        video_list = videoTbl.objects.filter(id__in=Subquery(play_item.values('videoid')))
+        video_list = videoTbl.objects.filter(videoid__in=Subquery(play_item.values('videoid')))
         context['video_list'] = video_list
     return render(request, 'youtube/index.html', context)
 
-def playlist_add(request):
+def playlist_insert(request):
     if request.method == "POST":
         name = request.POST.get('name')
         user = request.user
-        playlist = playlistTbl(list_name=name, userid=user)
+        playlist = playlistTbl(userid=user, list_name=name)
         playlist.save()
     return redirect('/')
+
+def playlist_rename(request):
+    pass
+
+def playlist_delete(request):
+    pass
+
+def playlist_insert_video(request):
+    pass
+
+def playlist_delete_video(request):
+    pass
 
 def history(request):
     context = {}
     if request.user.is_authenticated:
         context['play_list'] = playlistTbl.objects.filter(userid=request.user.id)
         histo_list = historyTbl.objects.filter(userid=request.user.id)
-        video_list = videoTbl.objects.filter(id__in=Subquery(histo_list.values('videoid')))
+        video_list = videoTbl.objects.filter(videoid__in=Subquery(histo_list.values('videoid')))
         context['video_list'] = video_list
     return render(request, 'youtube/index.html', context)
+
+def history_insert_video(request):
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            user = request.user
+            videoid = request.POST.get('videoid')
+            print("userid: " + str(user.id) + ", videoid:" + videoid)
+            history = historyTbl(userid=user, videoid_id=videoid)
+            history.save()
+    return JsonResponse({'status': 'ok'})
+
+def history_delete_video(request):
+    pass
 
 #210205추가 회원가입페이지
 def signup(request):

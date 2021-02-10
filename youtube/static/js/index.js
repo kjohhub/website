@@ -88,8 +88,44 @@ function collectPlayCount(data) {
  * loadVideoById 함수 뿐만 아니라 다른 대체적인 함수들도 개체구문이 기능이 더 많다.
  */
 function changeVideoAndStart(id) {
+
+    /*
+    var form = document.postForm;
+    form.submit(function(ev){
+        $.ajax({
+            url: '/youtube/history/insert_video/',
+            type: 'POST',
+            data: {videoid: id},
+            dataType: 'text',
+            success: function (data) {
+                alert('ok');
+            }
+
+        })
+    })
+    */
     player.loadVideoById(id, 0, "large");
+
+    
+ 
+    
+
+    /*
+    var form = document.postForm;
+    form.action = '/youtube/history/insert_video/';
+    var hiddenField = document.createElement('input');
+        hiddenField.setAttribute('type', 'hidden');
+        hiddenField.setAttribute('name', 'videoid');
+        hiddenField.setAttribute('value', id);
+        form.appendChild(hiddenField);
+    form.submit();
+    */
 }
+
+$('#postForm').submit(function(e){
+    $.post('your/url', $(this).serialize(), function(e){  });
+    e.preventDefault();
+});
 
 function changeVideoObjectAndStart() {
     // 0초부터 10초까지 재생을 시킨다.
@@ -144,24 +180,34 @@ function updateTable() {
     }
 }
 
-function sendPost(action, params) {
+// post 전송
 
+/*
+function sendPost(action, params) {
 	var form = document.createElement('form');
 	form.setAttribute('method', 'post');
-	form.setAttribute('action', action);
+    form.setAttribute('action', action);
+    
 	document.charset = "utf-8";
-	for ( var key in params) {
-
+	for ( var key in params.keys()) {
+        console.log(key);
+        console.log(params[key]);
 		var hiddenField = document.createElement('input');
 		hiddenField.setAttribute('type', 'hidden');
 		hiddenField.setAttribute('name', key);
 		hiddenField.setAttribute('value', params[key]);
 		form.appendChild(hiddenField);
-	}
+    }
+    
+    var csrfField = document.createElement("input");
+    csrfField.setAttribute("type", "hidden");
+    csrfField.setAttribute("name", "_csrf");
+    form.appendChild(csrfField);
 
 	document.body.appendChild(form);
 	form.submit();
 }
+*/
 
 function openForm() {
     document.getElementById("popupForm").style.display = "block";
