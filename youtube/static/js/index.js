@@ -2,9 +2,10 @@ var tag = document.createElement('script');
 tag.src = "http://www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-var list_type = 0;      // 0:none, 1:search result, 2: playlist, 3: history
+var list_type = 3;      // 0:none, 1:search result, 2: playlist, 3: history
 var current_idx = 0;
 var current_videoid = '';
+
 
 /**
  * onYouTubeIframeAPIReady 함수는 필수로 구현해야 한다.
@@ -83,6 +84,44 @@ function changeVideoAndStart(id) {
     current_vid = id;
     player.loadVideoById(id, 0, "large");
     insertVideoToHistory();     // 시청기록에 추가한다.
+}
+
+// 재생목록을 선택한다.
+function selectPlaylist(id)
+{
+    list_type = 2;
+
+	postForm.setAttribute('method', 'post');
+	postForm.setAttribute('action', '/youtube/playlist/'+ id + '/');
+	postForm.submit();
+}
+
+// 재생목록을 삭제한다.
+function deletePlaylist(id)
+{
+    postForm.setAttribute('method', 'post');
+	postForm.setAttribute('action', '/youtube/playlist/delete/');
+    var field = document.createElement("input");
+    field.setAttribute("type", "hidden");
+    field.setAttribute("name", "listid");
+    field.setAttribute("value", id);
+    postForm.appendChild(field);
+	postForm.submit();
+}
+
+// 재생목록 이름을 변경한다.
+function renamePlaylist(id, name)
+{
+
+}
+
+// 시청 기록을 가져온다
+function requestHistoryList()
+{
+    list_type = 3;
+	postForm.setAttribute('method', 'post');
+	postForm.setAttribute('action', '/youtube/history/');
+	postForm.submit();
 }
 
 // 플레이중인 영상을 시청기록에 추가한다.

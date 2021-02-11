@@ -11,9 +11,6 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
 # index
-def empty():
-    return
-
 def index(request):
     context = {}
     if request.user.is_authenticated:
@@ -23,29 +20,30 @@ def index(request):
 
 def results(request):
     context = {}
+    search_key = request.GET.get('search_key')
     if request.user.is_authenticated:
         context['play_list'] = playlistTbl.objects.filter(userid=request.user.id)
-    search_key = request.GET.get('search_key')
     if search_key:
+        context['list_type'] = 'search'
         context['video_list'] = videoTbl.objects.filter(title__icontains=search_key)
     return render(request, 'youtube/index.html', context)
 
-def playlist(request):
+def playlist(request, id):
     context = {}
-    if request.method == "POST":
-        list_id = request.POST.get('listid')
-        print(list_id)
-        context['play_list'] = playlistTbl.objects.filter(userid=request.user.id)
-        play_item = playlistItemTbl.objects.filter(listid=list_id)
+    if request.user.is_authenticated:
+        curr_list = playlistTbl.objects.get(pk=id)
+        play_item = playlistItemTbl.objects.filter(listid=id)
         video_list = videoTbl.objects.filter(videoid__in=Subquery(play_item.values('videoid')))
+        context['list_type'] = 'playlist'
+        context['play_list'] = playlistTbl.objects.filter(userid=request.user.id)
+        context['curr_list'] = curr_list
         context['video_list'] = video_list
     return render(request, 'youtube/index.html', context)
 
 def playlist_insert(request):
-    if request.method == "POST":
+    if request.user.is_authenticated:
         name = request.POST.get('name')
-        user = request.user
-        playlist = playlistTbl(userid=user, list_name=name)
+        playlist = playlistTbl(userid=request.user, list_name=name)
         playlist.save()
     return redirect('/')
 
@@ -53,18 +51,21 @@ def playlist_rename(request):
     pass
 
 def playlist_delete(request):
-    pass
+    if request.user.is_authenticated:
+        id = request.POST.get('listid')
+        playlist = playlistTbl(pk=id)
+        playlist.delete()
+    return redirect('/')
 
 @csrf_exempt
 def playlist_insert_video(request):
     if request.user.is_authenticated:
-        if request.method == "POST":
-            listid = request.POST.get('listid')
-            videoid = request.POST.get('videoid')
-            item = playlistItemTbl(listid_id=listid, videoid_id=videoid)
-            item.save()
-            return HttpResponse(status=200)
-    return HttpResponse(status=201)
+        listid = request.POST.get('listid')
+        videoid = request.POST.get('videoid')
+        item = playlistItemTbl(listid_id=listid, videoid_id=videoid)
+        item.save()
+        return HttpResponse(status=200)
+    return HttpResponse(status=400)
 
 def playlist_delete_video(request):
     pass
@@ -73,6 +74,7 @@ def history(request):
     context = {}
     if request.user.is_authenticated:
         context['play_list'] = playlistTbl.objects.filter(userid=request.user.id)
+        context['list_type'] = 'history'
         histo_list = historyTbl.objects.filter(userid=request.user.id)
         video_list = videoTbl.objects.filter(videoid__in=Subquery(histo_list.values('videoid')))
         context['video_list'] = video_list
@@ -81,13 +83,12 @@ def history(request):
 @csrf_exempt
 def history_insert_video(request):
     if request.user.is_authenticated:
-        if request.method == "POST":
-            user = request.user
-            videoid = request.POST.get('videoid')
-            history = historyTbl(userid=user, videoid_id=videoid)
-            history.save()
-            return HttpResponse(status=200)
-    return HttpResponse(status=201)
+        user = request.user
+        videoid = request.POST.get('videoid')
+        history = historyTbl(userid=user, videoid_id=videoid)
+        history.save()
+        return HttpResponse(status=200)
+    return HttpResponse(status=400)
 
 def history_delete_video(request):
     pass

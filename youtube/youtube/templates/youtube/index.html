@@ -29,15 +29,10 @@
             </div>
             <div class="left">
                 {% if user.is_authenticated %}
-                    <form action="/youtube/history/" method="GET">
-                        <button class="button1" type="submit">시청 기록</button>
-                    </form>
+                    <button class="button1" onclick="requestHistoryList()">시청 기록</button>
                     <br>
                     {% for list in play_list %}
-                    <form id = "{{ list.id }}" action="/youtube/playlist/" method="POST">
-                        {% csrf_token %}
-                        <button class="button1" type="submit" name="listid" value="{{ list.id }}"> {{ list.list_name }}</button>
-                    </form>
+                    <button class="button1" type="button" onclick="selectPlaylist('{{ list.id }}')">{{ list.list_name }}</button>  
                     {% endfor %}
                     {% if play_list.count < 8 %}
                     <button class="button2" type="button" onClick="openForm()"> 목록 추가</button>
@@ -65,7 +60,19 @@
                 {% endfor %}
             </div>
             <div class="right">
-                <div class="title">검색 결과</div>
+                {% if list_type %}
+                <div class="title" id="table_title">
+                    {% if list_type == 'search' %}
+                        <span class="name" >검색 결과</span>
+                    {% elif list_type == 'history' %}
+                        <span class="name" >시청 기록</span>
+                    {% elif list_type == 'playlist' %}
+                        <span class="name" >{{ curr_list.list_name }}</span>
+                        <button class="btn_delete" onclick="deletePlaylist('{{ curr_list.id }}')"><span class="material-icons">delete</span></button>
+                        <button class="btn_rename" onclick=""><span class="material-icons">edit</span></button>
+                    {% endif %}
+                </div>
+                {% endif %}
                 {% if video_list %}
                 <table class="table" id = "table">
                     {% for video in video_list %}
