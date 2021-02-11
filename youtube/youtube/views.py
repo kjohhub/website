@@ -73,8 +73,17 @@ def playlist_insert_video(request):
         return HttpResponse(status=200)
     return HttpResponse(status=400)
 
+@csrf_exempt
 def playlist_delete_video(request):
-    pass
+    if request.user.is_authenticated:
+        listid = request.POST.get('listid')
+        videoid = request.POST.get('videoid')
+        print(listid)
+        print(videoid)
+        item = playlistItemTbl.objects.get(listid_id=listid, videoid_id=videoid)
+        item.delete()
+        return HttpResponse(status=200)
+    return HttpResponse(status=400)
 
 def history(request):
     context = {}
@@ -89,15 +98,20 @@ def history(request):
 @csrf_exempt
 def history_insert_video(request):
     if request.user.is_authenticated:
-        user = request.user
         videoid = request.POST.get('videoid')
-        history = historyTbl(userid=user, videoid_id=videoid)
+        history = historyTbl(userid=request.user, videoid_id=videoid)
         history.save()
         return HttpResponse(status=200)
     return HttpResponse(status=400)
 
+@csrf_exempt
 def history_delete_video(request):
-    pass
+    if request.user.is_authenticated:
+        videoid = request.POST.get('videoid')
+        history = historyTbl.objects.get(userid=request.user, videoid_id=videoid)
+        history.delete()
+        return HttpResponse(status=200)
+    return HttpResponse(status=400)
 
 #210205추가 회원가입페이지
 def signup(request):

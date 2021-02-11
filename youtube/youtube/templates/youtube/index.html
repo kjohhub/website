@@ -29,7 +29,7 @@
             </div>
             <div class="left">
                 {% if user.is_authenticated %}
-                    <button class="button1" onclick="requestHistoryList()">시청 기록</button>
+                    <button class="button1" onclick="selectHistory()">시청 기록</button>
                     <br>
                     {% for list in play_list %}
                         <button class="button2" type="button" onclick="selectPlaylist('{{ list.id }}')">{{ list.list_name }}</button>
@@ -52,8 +52,8 @@
                         <span class="name" >시청 기록</span>
                     {% elif list_type == 'playlist' %}
                         <span class="name" >{{ curr_list.list_name }}</span>
-                        <button class="btn_delete" onclick="deletePlaylist('{{ curr_list.id }}')"><span class="material-icons">delete</span></button>
-                        <button class="btn_rename" onclick="renamePlaylist('{{ curr_list.id }}')"><span class="material-icons">edit</span></button>
+                        <button class="btn_delete" onclick="deletePlaylist()"><span class="material-icons">delete</span></button>
+                        <button class="btn_rename" onclick="renamePlaylist()"><span class="material-icons">edit</span></button>
                     {% endif %}
                 </div>
                 {% endif %}
@@ -63,7 +63,9 @@
                     <tr class="tr" id = "{{video.videoid}}" onclick = "itemClicked(this)">
                         <td><image src="{{ video.image_url }}"></td>
                         <td>{{ video.title }}</td>
-                        <td><button class="btn_delete" onclick="event.cancelBubble=true; itemDelete()"><span class="material-icons">delete</span></button></td>
+                        <td><button class="btn_delete" onclick="event.cancelBubble=true; itemDelete('{{list_type}}', '{{curr_list.id}}', '{{video.videoid}}')">
+                            <span class="material-icons">delete</span></button>
+                        </td>
                     </tr>
                     {% endfor %}
                 </table>

@@ -24,6 +24,9 @@ class playlistTbl(models.Model):
 
 # 재생 목록 아이템 테이블
 class playlistItemTbl(models.Model):
+    class Meta:
+        unique_together = (('listid', 'videoid'),)
+
     listid = models.ForeignKey(playlistTbl, on_delete=models.CASCADE)
     videoid = models.ForeignKey(videoTbl, on_delete=models.CASCADE)
 
@@ -33,6 +36,9 @@ class playlistItemTbl(models.Model):
 
 # 시청 기록 테이블
 class historyTbl(models.Model):
+    class Meta:
+        unique_together = (('userid', 'videoid'),)
+
     userid = models.ForeignKey(User, on_delete=models.CASCADE)
     videoid = models.ForeignKey(videoTbl, on_delete=models.CASCADE)
 

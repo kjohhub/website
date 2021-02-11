@@ -2,7 +2,6 @@ var tag = document.createElement('script');
 tag.src = "http://www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-var list_type = 3;      // 0:none, 1:search result, 2: playlist, 3: history
 var current_idx = 0;
 var current_videoid = '';
 
@@ -89,8 +88,6 @@ function changeVideoAndStart(id) {
 // 재생목록을 선택한다.
 function selectPlaylist(id)
 {
-    list_type = 2;
-
 	postForm.setAttribute('method', 'post');
 	postForm.setAttribute('action', '/youtube/playlist/'+ id + '/');
 	postForm.submit();
@@ -103,21 +100,20 @@ function insertPlaylist()
 }
 
 // 재생목록의 이름을 변경한다
-function renamePlaylist(id)
+function renamePlaylist()
 {
     openForm("popupRename");
 }
 
 // 재생목록을 삭제한다.
-function deletePlaylist(id)
+function deletePlaylist()
 {
     openForm("popupDelete");
 }
 
 // 시청 기록을 가져온다
-function requestHistoryList()
+function selectHistory()
 {
-    list_type = 3;
 	postForm.setAttribute('method', 'post');
 	postForm.setAttribute('action', '/youtube/history/');
 	postForm.submit();
@@ -158,6 +154,42 @@ function insertVideoToPlaylist(listid) {
         },
     });
 }
+
+// 재생목록에서 비디오를 삭제한다
+function deleteVideoFromPlaylist(listid, videoid) {
+    $.ajax({
+        type: "POST",
+        url: "/youtube/playlist/delete_video/",
+        data: {
+            'listid': listid, 
+            'videoid': videoid, 
+            'csrfmiddlewaretoken': '{{ csrf_token }}'
+        },
+        dataType: "text",
+        success: function(response){ 
+        },
+        error: function(request, status, error){ 
+        },
+    });
+}
+
+// 시청기록에서 비디오를 삭제한다
+function deleteVideoFromHistory(videoid) {
+    $.ajax({
+        type: "POST",
+        url: "/youtube/history/delete_video/",
+        data: {
+            'videoid': videoid, 
+            'csrfmiddlewaretoken': '{{ csrf_token }}'
+        },
+        dataType: "text",
+        success: function(response){ 
+        },
+        error: function(request, status, error){ 
+        },
+    });
+}
+
 
 function changeVideoObjectAndStart() {
     // 0초부터 10초까지 재생을 시킨다.
@@ -202,8 +234,28 @@ function itemClicked(tr) {
     updateTable();
 }
 
-function itemDelete() {
-    
+function itemDelete(type, listid, videoid) {
+    //alert(type + "," + listid + "," + videoid);
+    if  (type == 'history') {
+        deleteVideoFromHistory(videoid);
+    }
+    else if (type == 'playlist') {
+        deleteVideoFromPlaylist(listid, videoid);
+    }
+    // 테이블에서 삭제
+    for (var i = 0; i < table.rows.length; i++) {
+        if (table.rows[i].id == videoid) {
+            table.deleteRow(i);
+            break;
+        }  
+    }
+}
+
+function delete_row() {
+    alert(table.rows.length);
+    if (table.rows.length < 1) 
+        return;
+    table.deleteRow( table.rows.length-1 ); // 하단부터 삭제
 }
 
 function updateTable() {

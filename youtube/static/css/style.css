@@ -45,7 +45,7 @@ body {
 
 .header .search input {
     outline: none;
-    width: calc(100% - 102px);
+    width: calc(100% - 60px);
     height: 50px;
     line-height: 50px;
     font-size: 18px;
