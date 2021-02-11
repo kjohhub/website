@@ -5,14 +5,13 @@
 .container {
     display:grid;
     grid-template-columns: 170px 1fr 240px;
-    grid-template-rows: 70px 1fr 60px;
+    grid-template-rows: 70px 1fr;
     /*grid-gap: 10px;*/
     height: 100%;
     padding: 0px;
     grid-template-areas:
         "header header header"
         "left main right"
-        "left bottom right";
 }
 
 /* header */
@@ -91,14 +90,14 @@
     padding: 10px;
     background-color:black;
 }
-
-.left .button1 {
-    width: 100%;
-    margin: 4px;
+.left button {
+    height: 50px;
+    line-height: 50px;
+    margin: none;
+    margin-bottom: 8px;
     background-color: #333; /* Green */
     border: none;
     color: white;
-    padding: 15px 10px;
     text-align: center;
     text-decoration: none;
     box-shadow: none;
@@ -106,20 +105,30 @@
     cursor: pointer;
     display: block;
 }
-.left .button2 {
+.left button:hover {
+    background-color: rgb(85, 85, 85);
+}
+.left button:focus {
+    background-color: rgb(85, 85, 168);
+    outline:none!important;
+}
+.left .button1 {
     width: 100%;
-    margin: 2px;
+}
+.left .button2 {
+    width: 82%;
+    float: left;
+}
+.left .button3 {
+    width: 18%;
+    float: left;
+}
+.left .button4 {
+    width: 100%;
     background-color: black; /* Green */
     border: 1px dashed white;
-    color: white;
-    padding: 15px 10px;
-    font-size: 14px;
-    cursor: pointer;
-    display: block;
 }
-.left .button:checked {
-    background-color: blue;
-}
+
 
 .main {
     grid-area:main;
@@ -143,7 +152,7 @@
     text-align: right;
     margin-left : 10px;
 }
-.right .title .btn_rename {
+.right .title button {
     width: 30px;
     height: 100%;
     border: none;
@@ -151,19 +160,16 @@
     float: right;
     margin-right: 3px;
     background-color: inherit;
+}
+.right .title button:hover {
+    background-color: rgb(85, 85, 85);
+}
+.right .title button:focus {
+    background-color: rgb(85, 85, 168);
 }
 .right .title .btn_rename .material-icons {
     font-size:30px;
     color: white;
-}
-.right .title .btn_delete {
-    width: 30px;
-    height: 100%;
-    border: none;
-    outline: none;
-    float: right;
-    margin-right: 3px;
-    background-color: inherit;
 }
 .right .title .btn_delete .material-icons {
     font-size:30px;
@@ -178,9 +184,13 @@
     cursor: pointer;
     border-collapse: collapse;
 }
+.right .table tr:hover {
+    background-color: rgb(85, 85, 85);
+}
 .right .table img {
     width: 100px;
     height: 80px;
+    background-color: inherit;
 }
 .right .table td {
     color: white;
@@ -189,6 +199,7 @@
     background-color: inherit;
     line-height: 180%;
 }
+
 .right .table .btn_delete {
     width: 30px;
     height: 100%;
@@ -197,35 +208,12 @@
     float: right;
     background-color: inherit;
 }
+
+
 .right .table .btn_delete .material-icons {
     font-size:30px;
     color: red;
 }
-
-.bottom {
-    grid-area: bottom;
-    background-color: black;
-}
-
-.bottom .container {
-    margin: 5px;
-    width: 100%;
-    height: 100%;
-}
-
-.bottom .button3 {
-    width: 120px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    margin-left: 5px;
-    height: 50px;
-    color: white;
-    border: none;
-    background-color: #333;
-    float: left;
-    cursor: pointer;
-}
-
 
 .selected {
     color: yellow;

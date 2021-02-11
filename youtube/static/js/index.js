@@ -96,23 +96,22 @@ function selectPlaylist(id)
 	postForm.submit();
 }
 
+// 재생목록을 추가한다.
+function insertPlaylist()
+{
+    openForm("popupInsert");
+}
+
+// 재생목록의 이름을 변경한다
+function renamePlaylist(id)
+{
+    openForm("popupRename");
+}
+
 // 재생목록을 삭제한다.
 function deletePlaylist(id)
 {
-    postForm.setAttribute('method', 'post');
-	postForm.setAttribute('action', '/youtube/playlist/delete/');
-    var field = document.createElement("input");
-    field.setAttribute("type", "hidden");
-    field.setAttribute("name", "listid");
-    field.setAttribute("value", id);
-    postForm.appendChild(field);
-	postForm.submit();
-}
-
-// 재생목록 이름을 변경한다.
-function renamePlaylist(id, name)
-{
-
+    openForm("popupDelete");
 }
 
 // 시청 기록을 가져온다
@@ -217,10 +216,10 @@ function updateTable() {
     }
 }
 
-function openForm() {
-    document.getElementById("popupForm").style.display = "block";
+function openForm(formid) {
+    document.getElementById(formid).style.display = "block";
 }
 
-function closeForm() {
-    document.getElementById("popupForm").style.display = "none";
+function closeForm(formid) {
+    document.getElementById(formid).style.display = "none";
 }

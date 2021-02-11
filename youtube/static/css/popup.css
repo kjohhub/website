@@ -7,10 +7,11 @@
   .formPopup {
     display: none;
     position: fixed;
-    left: 180px;
-    top: 82px;
     border: 1px solid white;
     z-index: 9;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
   }
   .formContainer {
     max-width: 300px;

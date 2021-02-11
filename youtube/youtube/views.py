@@ -48,7 +48,13 @@ def playlist_insert(request):
     return redirect('/')
 
 def playlist_rename(request):
-    pass
+    if request.user.is_authenticated:
+        id = request.POST.get('listid')
+        name = request.POST.get('name')
+        playlist = playlistTbl.objects.get(pk=id)
+        playlist.list_name = name
+        playlist.save()
+    return redirect('/')
 
 def playlist_delete(request):
     if request.user.is_authenticated:

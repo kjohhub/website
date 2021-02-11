@@ -5,9 +5,7 @@
         <title>MTube Premium</title>
         <link rel="stylesheet" href={% static 'css/style.css' %}>
         <link rel="stylesheet" href={% static 'css/popup.css' %}>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      
-        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" >
     </head>
     <body>
         <div class="container">
@@ -19,11 +17,11 @@
                 </form>
                 <div class="login">
                     {% if user.is_authenticated %}
-                    <button class="button_login" id="logout" onclick="location.href='{% url 'logout' %}'">로그아웃</button>
-                    <span class="user_name">{{ user.username }}님<br><a href="{% url 'youtube:profile_delete' %}">회원탈퇴</a></span>
+                        <button class="button_login" id="logout" onclick="location.href='{% url 'logout' %}'">로그아웃</button>
+                        <span class="user_name">{{ user.username }}님<br><a href="{% url 'youtube:profile_delete' %}">회원탈퇴</a></span>
                     {% else %}
-                    <button class="button_login" id="login" onclick="location.href='{% url 'login' %}'">로그인</button>
-                    <span class="user_name">손님</span>
+                        <button class="button_login" id="login" onclick="location.href='{% url 'login' %}'">로그인</button>
+                        <span class="user_name">손님</span>
                     {% endif %}
                 </div>
             </div>
@@ -32,32 +30,16 @@
                     <button class="button1" onclick="requestHistoryList()">시청 기록</button>
                     <br>
                     {% for list in play_list %}
-                    <button class="button1" type="button" onclick="selectPlaylist('{{ list.id }}')">{{ list.list_name }}</button>  
+                        <button class="button2" type="button" onclick="selectPlaylist('{{ list.id }}')">{{ list.list_name }}</button>
+                        <button class="button3" type="button" onclick="insertVideoToPlaylist('{{ list.id }}')"><span class="material-icons">playlist_add</span></button>
                     {% endfor %}
                     {% if play_list.count < 8 %}
-                    <button class="button2" type="button" onClick="openForm()"> 목록 추가</button>
-                    <div class="playListPopup">
-                        <div class="formPopup" id="popupForm">
-                            <form action="/youtube/playlist/insert/" class="formContainer" method="POST">
-                                {% csrf_token %}
-                                <input type="text" id="name" placeholder="재생목록 이름" name="name" required>
-                                <button type="submit" class="btn">추가</button>
-                                <button type="button" class="btn cancel" onclick="closeForm()">취소</button>
-                            </form>
-                        </div>
-                    </div>
+                        <button class="button4" type="button" onClick="insertPlaylist()"> 목록 추가</button>
                     {% endif %}
                 {% endif %}
             </div>
             <div class="main">
                 <div id="player"></div>
-            </div>
-            <div class="bottom">
-                {% for list in play_list %}
-                <button class="button3" type="button" onclick="insertVideoToPlaylist('{{ list.id }}')">
-                    {{ list.list_name }}<br>추가
-                </button>
-                {% endfor %}
             </div>
             <div class="right">
                 {% if list_type %}
@@ -69,7 +51,7 @@
                     {% elif list_type == 'playlist' %}
                         <span class="name" >{{ curr_list.list_name }}</span>
                         <button class="btn_delete" onclick="deletePlaylist('{{ curr_list.id }}')"><span class="material-icons">delete</span></button>
-                        <button class="btn_rename" onclick=""><span class="material-icons">edit</span></button>
+                        <button class="btn_rename" onclick="renamePlaylist('{{ curr_list.id }}')"><span class="material-icons">edit</span></button>
                     {% endif %}
                 </div>
                 {% endif %}
@@ -90,6 +72,35 @@
             {% csrf_token %}
             <input type="hidden" name="videoid">
         </form>
+        <div class="playListPopup">
+            <div class="formPopup" id="popupInsert">
+                <form action="/youtube/playlist/insert/" class="formContainer" method="POST">
+                    {% csrf_token %}
+                    <input type="text" placeholder="재생목록 이름" name="name" required>
+                    <button type="submit" class="btn">추 가</button>
+                    <button type="button" class="btn cancel" onclick="closeForm('popupInsert')">취 소</button>
+                </form>
+            </div>
+            <div class="formPopup" id="popupRename">
+                <form action="/youtube/playlist/rename/" class="formContainer" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="listid" value="{{curr_list.id}}">
+                    <input type="text" placeholder="재생목록 이름" name="name" value="{{curr_list.list_name}}" required>
+                    <button type="submit" class="btn">변 경</button>
+                    <button type="button" class="btn cancel" onclick="closeForm('popupRename')">취 소</button>
+                </form>
+            </div>
+            <div class="formPopup" id="popupDelete">
+                <form action="/youtube/playlist/delete/" class="formContainer" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="listid" value="{{curr_list.id}}">
+                    <input type="text" placeholder="재생목록 이름" name="name" value="{{curr_list.list_name}}" disabled>
+                    <button type="submit" class="btn">삭 제</button>
+                    <button type="button" class="btn cancel" onclick="closeForm('popupDelete')">취 소</button>
+                </form>
+            </div>
+        </div>
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script type="text/javascript" language="javascript" src={% static 'js/index.js' %}></script>
     </body>
 </html>
