@@ -3,6 +3,7 @@ from youtube.models import videoTbl, playlistTbl, playlistItemTbl, historyTbl
 from django.contrib.auth import authenticate, login		#210205추가
 from youtube.forms import UserForm		#210205추가
 from .forms import CheckPasswordForm	#210208추가
+from youtube.forms import videoTblForm
 from youtube.decorators import *	#210208추가
 from django.db.models import Subquery
 from django.http import HttpResponseRedirect
@@ -151,3 +152,19 @@ def manage_video(request):
     if request.user.is_authenticated:
         video_list = videoTbl.objects.all()
     return render(request, 'youtube/manage_video.html', context)
+
+@csrf_exempt
+def video_form(request):
+    context = {}
+    if request.method == "POST":
+        form = videoTblForm(request.POST)
+        if form.is_valid():
+            obj = videoTbl(title = form.data['title'], videoid = form.data['videoid'],  video_url = "https://www.youtube.com/watch?v=" + form.data['videoid'], image_url =  "https://i.ytimg.com/vi/" + form.data['videoid'] + "/hqdefault.jpg")
+            obj.save()
+            return render(request, 'youtube/manage_video.html', context)
+        return HttpResponse('fail')
+    elif request.method == 'GET':
+        form = PersonForm()
+        return render(request, 'dj/form.html', {'form': form})
+    else:
+        pass

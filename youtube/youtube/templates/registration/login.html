@@ -6,15 +6,14 @@
     <title>MTube Premium_login</title>
     <meta charset="utf-8">
     <link rel ="stylesheet" href={% static 'css/mem_style.css' %} />
-    <script src="https://kit.fontawesome.com/78f8208a14.js" crossorigin="anonymous"></script>
   </head>
 
   <body>
     <!--상단 바-->
     <div class="header">
-      <div class="title">MTube Premium</div>
-      <div class="icon" onclick="location.href='{% url 'index' %}'" style="cursor:pointer;" ><i class="fas fa-home"></i></div>
+      <div class="title" onclick="location.href='{% url 'index' %}'" style="cursor:pointer;">MTube Premium</div>
     </div>
+
 
       <!--메인화면-->
       <section class="main_container">
@@ -48,11 +47,12 @@
                 <!--로그인 제출 버튼-->
                 <button type="submit" class="btn btn-primary" >로그인</button>
                 </div>
-              </div>
+
           </form>
         <!--회원가입 링크-->
         <a href="{% url 'youtube:signup' %}" class="join_link">또는 회원으로 가입하기</a>
-      </div>
+
+        </div>
       </section>
   </body>
 </html>

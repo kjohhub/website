@@ -27,23 +27,6 @@ body{
     color : #666;
 }
 
-button,
-button:focus {
-    border: none;
-    cursor: pointer;
-    outline: none;
-    text-align: center;
-
-    margin: 15px;
-    width: 94%;
-    height: 44px;
-    background-color:var(--grey-dark-color);
-    border: 1px;
-    border-radius: 3px;
-    color: var(--white-color);
-    font-size: 17px;
-    font-weight: 500;
-}
 
 /* header */
 .header {
@@ -65,24 +48,7 @@ button:focus {
     letter-spacing: -1px;
 }
 
-.header .icon {
-  line-height: 50px;
-  color: white;
-  font-size: 30px;
-}
-
-/*로그인 메인창*/
-.main_container{
-    width: 100vw;
-    height: 100vh;
-}
-
-#container {
-  width : 800px;
-  margin : auto;
-  overflow : auto;
-  padding : 15px;
-}
+/*메인창*/
 
 .result_table {
   background-color: var(--white-color);
@@ -91,4 +57,56 @@ button:focus {
   margin: 20px;
   border: 1px;
   border-radius: 3px;
+}
+
+.bar_container {
+    color: var(--black-color);
+    margin-top: 15px;
+    margin-left: 24px;
+    border: none;
+    outline: none;
+    border: 1px;
+    border-radius: 3px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.btn1 {
+  border: 1px;
+  border-radius: 3px;
+  cursor: pointer;
+  text-align: center;
+  display: inline;
+  width: 20%;
+  height: 35px;
+  background-color:var(--grey-dark-color);
+  border: 1px;
+  border-radius: 3px;
+  color: var(--white-color);
+
+}
+
+.search_bar {
+  border: 1px;
+  border-radius: 3px;
+  width: 75% ;
+  height: 35px;
+}
+
+.title_bar {
+  border: 1px;
+  border-radius: 3px;
+  width: 45%;
+  height: 35px;
+}
+
+.videoId_bar {
+  border: 1px;
+  border-radius: 3px;
+  width: 29.5%;
+  height: 35px;
+}
+
+#copy {
+  color: var(--gray-light-color);
 }

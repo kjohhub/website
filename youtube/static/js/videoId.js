@@ -1,19 +1,23 @@
 function proc(videoInfo) {
   $.each(videoInfo, function (index, item) {
-    let str = "<tr><td>" + "(라디오버튼)" + "</td>";
-    str += "<td>" + item.title + "</td>";
+    let str = "<tr><td>" + item.title + "</td>";
     str += "<td>" + item.videoId + "</td></tr>";
     $("table").append(str);
     console.log(item);
   });
 }
 
+
 $(document).ready(function(){
-  $( "button" ).click( function() {
+  $( "#btn" ).click( function() {
+    //버튼클릭 이벤트가 뜨고 난 후 검색어를 저장해야 초기값(빈 값)으로 되돌아가지 않음
+    var playlist_code = $("#playlist_code").val();
+    //console.log(playlist_code);
       $.ajax({
             type: "GET",
             dataType: "JSON",
-            url: "https://www.googleapis.com/youtube/v3/playlistItems?playlistId=PLxCfRlqeGfGnXPhPQNG1Ac0fWLS1gYDjZ&part=snippet&maxResults=50&key=AIzaSyCZ2OTX5bKu60-32PRV5m9tUfjiD08L_q0",
+            //default:PLxCfRlqeGfGnXPhPQNG1Ac0fWLS1gYDjZ로 검색할 것
+            url: "https://www.googleapis.com/youtube/v3/playlistItems?playlistId=" + playlist_code + "&part=snippet&maxResults=50&key=AIzaSyCZ2OTX5bKu60-32PRV5m9tUfjiD08L_q0",
             contentType: "application/json",
             success : function(jsonData) {
               let videoInfo = [];
@@ -31,10 +35,6 @@ $(document).ready(function(){
                     }
 
                     proc(videoInfo);
-
-
-
-
               },
 
             complete : function(data) {
@@ -46,8 +46,6 @@ $(document).ready(function(){
         });
     });
 });
-
-
 
 
 /*

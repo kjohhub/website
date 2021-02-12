@@ -26,3 +26,7 @@ class CheckPasswordForm(forms.Form):
         if password:
             if not check_password(password, confirm_password):
                 self.add_error('password', '비밀번호가 일치하지 않습니다.')
+
+class videoTblForm(forms.Form):
+    videoid = forms.CharField(label='videoid', max_length=16)
+    title = forms.CharField(label='title', max_length=64)
