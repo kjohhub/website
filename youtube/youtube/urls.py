@@ -21,5 +21,6 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
     path('profile/delete/', views.profile_delete_view, name='profile_delete'),
     path('manage_video/', views.manage_video, name='manage_video'),
-    path('video_form/', views.video_form, name='video_form')
+    path('video_form/', views.video_form, name='video_form'),
+    path('manage_video/insert/', views.manage_video_insert, name='manage_video_insert'),
 ]

@@ -1,11 +1,35 @@
+
+
 function proc(videoInfo) {
   $.each(videoInfo, function (index, item) {
-    let str = "<tr><td>" + item.title + "</td>";
-    str += "<td>" + item.videoId + "</td></tr>";
+    
+    let str = 
+    "<tr>" +
+      "<td><input type='checkbox' name='checkbox'></td>" +
+      "<td><input type='text' style='width: 900px;' name='title' value='"+ item.title + "'></td>" + 
+      "<td><input type='text' style='width: 200px;' name='title' value='"+ item.videoId + "' disabled></td>" +
+    "</tr>";
     $("table").append(str);
     console.log(item);
   });
 }
+
+
+
+/*
+function proc(videoInfo) {
+  $.each(videoInfo, function (index, item) {
+    let str = 
+    "<tr>" +
+      "<td><label><input type='checkbox' name='color' value='blue'></td>" +
+      "<td><input type='text' name='title'>" + item.title + "</td>" + 
+      "<td>" + item.videoId + "</td>" +
+    "</tr>";
+    $("table").append(str);
+    console.log(item);
+  });
+}
+*/
 
 
 $(document).ready(function(){
@@ -20,7 +44,7 @@ $(document).ready(function(){
             url: "https://www.googleapis.com/youtube/v3/playlistItems?playlistId=" + playlist_code + "&part=snippet&maxResults=50&key=AIzaSyCZ2OTX5bKu60-32PRV5m9tUfjiD08L_q0",
             contentType: "application/json",
             success : function(jsonData) {
-              let videoInfo = [];
+                    let videoInfo = [];      
                     for (let i = 0; i < jsonData.items.length; i++) {
                       let items = jsonData.items[i];
                       let title = items.snippet.title;
@@ -45,6 +69,40 @@ $(document).ready(function(){
               }
         });
     });
+
+
+  $("#btnSave").click(function() { 
+
+    var checkbox = $("input[name=checkbox]:checked");
+    
+    checkbox.each(function(i) {
+      // checkbox.parent() : checkbox의 부모는 <td>이다.
+      // checkbox.parent().parent() : <td>의 부모이므로 <tr>이다.
+      var tr = checkbox.parent().parent().eq(i);
+      var td = tr.children();
+      
+      
+      // td.eq(0)은 체크박스 이므로  td.eq(1)의 값부터 가져온다.
+      var title = td.eq(1).find('input[type="text"]').val();
+      var videoid = td.eq(2).find('input[type="text"]').val();
+      
+      // 가져온 값을 배열에 담는다.
+      //alert(no + "," + userid);
+      $.ajax({
+        type: "POST",
+        url: "/youtube/manage_video/insert/",
+        data: {
+            'videoid': videoid, 
+            'title': title
+        },
+        dataType: "text",
+        success: function(response){ 
+        },
+        error: function(request, status, error){ 
+        },
+    });
+    });
+  });
 });
 
 

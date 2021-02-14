@@ -3,7 +3,6 @@ from youtube.models import videoTbl, playlistTbl, playlistItemTbl, historyTbl
 from django.contrib.auth import authenticate, login		#210205추가
 from youtube.forms import UserForm		#210205추가
 from .forms import CheckPasswordForm	#210208추가
-from youtube.forms import videoTblForm
 from youtube.decorators import *	#210208추가
 from django.db.models import Subquery
 from django.http import HttpResponseRedirect
@@ -79,8 +78,6 @@ def playlist_delete_video(request):
     if request.user.is_authenticated:
         listid = request.POST.get('listid')
         videoid = request.POST.get('videoid')
-        print(listid)
-        print(videoid)
         item = playlistItemTbl.objects.get(listid_id=listid, videoid_id=videoid)
         item.delete()
         return HttpResponse(status=200)
@@ -168,3 +165,17 @@ def video_form(request):
         return render(request, 'dj/form.html', {'form': form})
     else:
         pass
+
+@csrf_exempt
+def manage_video_insert(request):
+    if request.method == "POST":
+        videoid = request.POST.get('videoid')
+        title = request.POST.get('title')
+        video_url = "https://www.youtube.com/watch?v=" + videoid
+        image_url =  "https://i.ytimg.com/vi/" + videoid + "/hqdefault.jpg"
+        video = videoTbl(videoid = videoid, title = title, video_url = video_url, image_url=image_url)
+        video.save()
+        return HttpResponse(status=200)
+    return HttpResponse(status=400)
+
+

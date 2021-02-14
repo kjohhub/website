@@ -19,24 +19,15 @@
     <!--메인 화면-->
       <section>
         <div class="bar_container"> <!--50개만 검색되는 이유: 유튜브 API인 playlistitems가 최대 50개까지만 제공함-->
-            <input type="text" placeholder="재생목록 ID : 상위 50개 결과만 검색됩니다" id="playlist_code" class="search_bar">
-            <button type="button" class="btn1" id="btn">동영상 검색</button>
+          <input type="text" placeholder="재생목록 ID : 상위 50개 결과만 검색됩니다" id="playlist_code" class="search_bar">
+          <button type="button" class="btn1" id="btn">동영상 검색</button>
         </div>
         <div class="bar_container">
-          <form name="video_form" action="{% url 'youtube:video_form' %}"  method="post">
-            <input type="text" class="title_bar" id="title" name="title" value="{{ form.title.value|default_if_none:'' }}" maxlength=64 placeholder="제목">
-            <input type="text" class="videoId_bar" id="videoid" name="videoid" value="{{ form.videoid.value|default_if_none:'' }}" maxlength=64 placeholder="ID">
-            <button type="submit" class="btn1">저장</button>
-          </form>
+          <button type="button" class="btn1" id ="btnSave">저장</button>
         </div>
         <div class="result_container">
-        <table id="result" class="result_table">
-             <tr>
-               <td></td>
-               <td></td>
-               <td></td>
-             </tr>
-        </table>
+          <table id="result" class="result_table">
+          </table>
         </div>
       </section>
   </body>
