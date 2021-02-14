@@ -57,7 +57,7 @@
                 {% endif %}
                 {% if video_list %}
                 <div class="table_container">
-                <table class="table" id = "table">
+                    <table class="table" id = "table">
                     {% for video in video_list %}
                     <tr class="tr" id = "{{video.videoid}}" onclick = "itemClicked(this)">
                         <td><image src="{{ video.image_url }}"></td>
@@ -67,7 +67,7 @@
                         </td>
                     </tr>
                     {% endfor %}
-                </table>
+                    </table>
                 </div>
                 {% endif %}
             </div>
