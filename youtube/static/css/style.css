@@ -97,26 +97,11 @@ body {
     float: left;
 }
 .login .button_login {
-    width: 60px;
+    width: 80px;
     border-radius: 10px;
+    font-size: 16px;
     float: right;
 }
-/*
-.header .search > button {
-    width: 100px; 
-    height: 50px;
-    margin-left: 0px;
-    float: left;
-}
-
-
-.login .button_login {
-    width: 100px; 
-    height: 100%;
-    float: right;
-}
-*/
-
 .left {
     grid-area:left;
     background-color:black;
@@ -211,10 +196,15 @@ body {
     font-size:30px;
     color: red;
 }
-
+.right .container {
+    width: 100%;
+    height: 600px;
+    display: inline-block;
+    overflow: auto;
+}
 .right .table {
     width: 100%;
-    height: 60px;
+    height: 80px;
     background-color: black;
     cursor: pointer;
     border-collapse: collapse;
@@ -223,14 +213,18 @@ body {
     background-color: rgb(85, 85, 85);
 }
 .right .table img {
-    width: 100px;
+    width: 96px;
     height: 80px;
+    padding: 2px;
     background-color: inherit;
 }
-.right .table td {
+.right .table .video_title {
     color: white;
-    font-size: 14px;
+    width: 90px;
+    height: 80px;
+    font-size: 12px;
     padding: 2px;
+    color: white;
     background-color: inherit;
     line-height: 180%;
 }

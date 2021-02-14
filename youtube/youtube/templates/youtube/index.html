@@ -17,12 +17,10 @@
                 </form>
                 <div class="login">
                     {% if user.is_authenticated %}
-                        <button class="button_login" id="logout" onclick="location.href='{% url 'logout' %}'">
-                            <span class="material-icons">logout</span></button>
+                        <button class="button_login" id="logout" onclick="location.href='{% url 'logout' %}'">logout</button>
                         <span class="user_name">{{ user.username }}님<br><a href="{% url 'youtube:profile_delete' %}">회원탈퇴</a></span>
                     {% else %}
-                        <button class="button_login" id="login" onclick="location.href='{% url 'login' %}'">
-                            <span class="material-icons">login</span></button>
+                        <button class="button_login" id="login" onclick="location.href='{% url 'login' %}'">login</button>
                         <span class="user_name">손님</span>
                     {% endif %}
                 </div>
@@ -58,17 +56,19 @@
                 </div>
                 {% endif %}
                 {% if video_list %}
+                <div class="table_container">
                 <table class="table" id = "table">
                     {% for video in video_list %}
                     <tr class="tr" id = "{{video.videoid}}" onclick = "itemClicked(this)">
                         <td><image src="{{ video.image_url }}"></td>
-                        <td>{{ video.title }}</td>
+                        <td><span class="video_title">{{ video.title }}</span></td>
                         <td><button class="btn_delete" onclick="event.cancelBubble=true; itemDelete('{{list_type}}', '{{curr_list.id}}', '{{video.videoid}}')">
                             <span class="material-icons">delete</span></button>
                         </td>
                     </tr>
                     {% endfor %}
                 </table>
+                </div>
                 {% endif %}
             </div>
         </div>
@@ -80,7 +80,7 @@
             <div class="formPopup" id="popupInsert">
                 <form action="/youtube/playlist/insert/" class="formContainer" method="POST">
                     {% csrf_token %}
-                    <input type="text" placeholder="재생목록 이름" name="name" required>
+                    <input type="text" placeholder="재생목록 이름" name="name" maxlength="8" required>
                     <button type="submit" class="btn">추 가</button>
                     <button type="button" class="btn cancel" onclick="closeForm('popupInsert')">취 소</button>
                 </form>
@@ -89,7 +89,7 @@
                 <form action="/youtube/playlist/rename/" class="formContainer" method="POST">
                     {% csrf_token %}
                     <input type="hidden" name="listid" value="{{curr_list.id}}">
-                    <input type="text" placeholder="재생목록 이름" name="name" value="{{curr_list.list_name}}" required>
+                    <input type="text" placeholder="재생목록 이름" name="name" value="{{curr_list.list_name}}" maxlength="8" required>
                     <button type="submit" class="btn">변 경</button>
                     <button type="button" class="btn cancel" onclick="closeForm('popupRename')">취 소</button>
                 </form>
