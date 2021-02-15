@@ -1,15 +1,25 @@
 function proc(videoInfo) {
   $.each(videoInfo, function (index, item) {
-    
-    let str = 
+
+    let str =
     "<tr>" +
       "<td><input type='checkbox' name='checkbox'></td>" +
-      "<td><input type='text' style='width: 900px;' name='title' value='"+ item.title + "'></td>" + 
+      "<td><input type='text' style='width: 900px;' name='title' value='"+ item.title + "'></td>" +
       "<td><input type='text' style='width: 200px;' name='title' value='"+ item.videoId + "' disabled></td>" +
     "</tr>";
     $("table").append(str);
     console.log(item);
   });
+}
+
+//체크박스 전체선택/해제
+function selectAll(selectAll)  {
+  const checkboxes
+     = document.querySelectorAll('input[type="checkbox"]');
+
+  checkboxes.forEach((checkbox) => {
+    checkbox.checked = selectAll.checked
+  })
 }
 
 $(document).ready(function(){
@@ -24,7 +34,7 @@ $(document).ready(function(){
             url: "https://www.googleapis.com/youtube/v3/playlistItems?playlistId=" + playlist_code + "&part=snippet&maxResults=50&key=AIzaSyCZ2OTX5bKu60-32PRV5m9tUfjiD08L_q0",
             contentType: "application/json",
             success : function(jsonData) {
-                    let videoInfo = [];      
+                    let videoInfo = [];
                     for (let i = 0; i < jsonData.items.length; i++) {
                       let items = jsonData.items[i];
                       let title = items.snippet.title;
@@ -51,31 +61,35 @@ $(document).ready(function(){
     });
 
 
-  $("#btnSave").click(function() { 
+  $("#btnSave").click(function() {
 
     var checkbox = $("input[name=checkbox]:checked");
-    
+
     checkbox.each(function(i) {
       // checkbox.parent() : checkbox의 부모는 <td>이다.
       // checkbox.parent().parent() : <td>의 부모이므로 <tr>이다.
       var tr = checkbox.parent().parent().eq(i);
       var td = tr.children();
-      
+
       // td.eq(0)은 체크박스 이므로  td.eq(1)의 값부터 가져온다.
       var title = td.eq(1).find('input[type="text"]').val();
       var videoid = td.eq(2).find('input[type="text"]').val();
-      
+
       $.ajax({
         type: "POST",
         url: "/youtube/manage_video/insert/",
         data: {
-            'videoid': videoid, 
+            'videoid': videoid,
             'title': title
         },
         dataType: "text",
-        success: function(response){ 
+        success: function(response){
+          if(confirm("정말 등록하시겠습니까?") == true){
+            alert("성공적으로 등록되었습니다.");
+          }
         },
-        error: function(request, status, error){ 
+        error: function(request, status, error){
+          alert("다시 시도해주십시오.");
         },
     });
     });
