@@ -12,7 +12,7 @@
             <div class="header">
                 <div class="title">MTube Premium</div>
                 <form class="search" action="/youtube/results/" method="GET">
-                    <input type="text" placeholder="Search..."/ name="search_key">
+                    <input type="text" placeholder="Search..."/ name="search_key" autocomplete="off">
                     <button><span class="material-icons">search</span></button>
                 </form>
                 <div class="login">
@@ -80,7 +80,7 @@
             <div class="formPopup" id="popupInsert">
                 <form action="/youtube/playlist/insert/" class="formContainer" method="POST">
                     {% csrf_token %}
-                    <input type="text" placeholder="재생목록 이름" name="name" maxlength="8" required>
+                    <input type="text" placeholder="재생목록 이름" name="name" maxlength="8" autocomplete="off" required>
                     <button type="submit" class="btn">추 가</button>
                     <button type="button" class="btn cancel" onclick="closeForm('popupInsert')">취 소</button>
                 </form>
@@ -89,7 +89,7 @@
                 <form action="/youtube/playlist/rename/" class="formContainer" method="POST">
                     {% csrf_token %}
                     <input type="hidden" name="listid" value="{{curr_list.id}}">
-                    <input type="text" placeholder="재생목록 이름" name="name" value="{{curr_list.list_name}}" maxlength="8" required>
+                    <input type="text" placeholder="재생목록 이름" name="name" value="{{curr_list.list_name}}" maxlength="8" autocomplete="off" required>
                     <button type="submit" class="btn">변 경</button>
                     <button type="button" class="btn cancel" onclick="closeForm('popupRename')">취 소</button>
                 </form>

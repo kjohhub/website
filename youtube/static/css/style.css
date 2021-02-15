@@ -5,6 +5,7 @@
 
 body {
     background-color: black;
+    
 }
 .container {
     display:grid;
@@ -29,32 +30,6 @@ body {
     grid-template-areas:
     ".title .search .login"
 }
-.header .title {
-    line-height: 50px;
-    vertical-align: middle;
-    color: white;
-    font-size: 30px;
-    letter-spacing: -1px;
-}
-
-.header .search{
-    height: 50px;
-    margin-left: 10%;
-    margin-right: 10%;
-}
-
-.header .search input {
-    outline: none;
-    width: calc(100% - 60px);
-    height: 50px;
-    line-height: 50px;
-    font-size: 18px;
-    padding: 10px;
-    float: left;
-}
-.header .search input:focus {
-    outline:none!important;
-}
 .header button {
     height: 50px;
     line-height: 50px;
@@ -75,11 +50,43 @@ body {
     background-color: rgb(85, 85, 168);
     outline:none!important;
 }
+.header .title {
+    line-height: 50px;
+    vertical-align: middle;
+    color: white;
+    font-size: 30px;
+    letter-spacing: -1px;
+}
+.header .search {
+    height: 50px;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+.header .search input {
+    outline: none;
+    width: calc(100% - 60px);
+    height: 50px;
+    line-height: 50px;
+    font-size: 18px;
+    padding: 10px;
+    border: none;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    float: left;
+}
+.header .search input:focus {
+    outline:none!important;
+}
+.header .search button {
+    width: 60px;
+    float: left;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
 .header .login {
     width: 300px;
     height: 100%;
 }
-
 .login .user_name {
     line-height: 25px;
     vertical-align: center;
@@ -92,16 +99,15 @@ body {
 .login a:visited {
     color: blue;
 }
-.header .search > button {
-    width: 60px;
-    float: left;
-}
 .login .button_login {
     width: 80px;
     border-radius: 10px;
-    font-size: 16gitpx;
+    font-size: 16px;
     float: right;
 }
+
+
+/* left */
 .left {
     grid-area:left;
     background-color:black;
@@ -120,7 +126,7 @@ body {
     font-size: 14px;
     cursor: pointer;
     display: block;
-    border-radius: 10px;
+    
 }
 .left button:hover {
     background-color: rgb(85, 85, 85);
@@ -131,21 +137,23 @@ body {
 }
 .left .button1 {
     width: 100%;
+    border-radius: 10px;
 }
 .left .button2 {
     width: 82%;
     float: left;
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 0px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
 }
 .left .button3 {
     width: 18%;
     float: left;
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 .left .button4 {
     width: 100%;
+    border-radius: 10px;
     background-color: black; /* Green */
     border: 1px dashed white;
 }

@@ -19,6 +19,8 @@ from youtube import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('admin/manage_video/', views.manage_video, name='manage_video'),
+    path('admin/manage_video/insert/', views.manage_video_insert, name='manage_video_insert'),
     path('youtube/', include('youtube.urls')),
     path('youtube/login', include('django.contrib.auth.urls')),
     path('', views.index, name='index'),

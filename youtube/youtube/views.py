@@ -146,9 +146,11 @@ def profile_delete_view(request):
 #210209 동영상 관리자창으로 이동
 def manage_video(request):
     context = {}
-    if request.user.is_authenticated:
+    if request.user.is_superuser:
+    #if request.user.is_authenticated:
         video_list = videoTbl.objects.all()
-    return render(request, 'youtube/manage_video.html', context)
+        return render(request, 'youtube/manage_video.html', context)
+    return redirect('/admin/')
 
 @csrf_exempt
 def video_form(request):
