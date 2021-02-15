@@ -1,31 +1,9 @@
-function proc(videoInfo) {
-  $.each(videoInfo, function (index, item) {
-
-    let str =
-    "<tr>" +
-      "<td><input type='checkbox' name='checkbox'></td>" +
-      "<td><input type='text' style='width: 900px;' name='title' value='"+ item.title + "'></td>" +
-      "<td><input type='text' style='width: 200px;' name='title' value='"+ item.videoId + "' disabled></td>" +
-    "</tr>";
-    $("table").append(str);
-    console.log(item);
-  });
-}
-
-//체크박스 전체선택/해제
-function selectAll(selectAll)  {
-  const checkboxes
-     = document.querySelectorAll('input[type="checkbox"]');
-
-  checkboxes.forEach((checkbox) => {
-    checkbox.checked = selectAll.checked
-  })
-}
-
 $(document).ready(function(){
   $( "#btn" ).click( function() {
+
     //버튼클릭 이벤트가 뜨고 난 후 검색어를 저장해야 초기값(빈 값)으로 되돌아가지 않음
     var playlist_code = $("#playlist_code").val();
+    var count = 1;
     //console.log(playlist_code);
       $.ajax({
             type: "GET",
@@ -34,6 +12,8 @@ $(document).ready(function(){
             url: "https://www.googleapis.com/youtube/v3/playlistItems?playlistId=" + playlist_code + "&part=snippet&maxResults=50&key=AIzaSyCZ2OTX5bKu60-32PRV5m9tUfjiD08L_q0",
             contentType: "application/json",
             success : function(jsonData) {
+
+
                     let videoInfo = [];
                     for (let i = 0; i < jsonData.items.length; i++) {
                       let items = jsonData.items[i];
@@ -95,3 +75,34 @@ $(document).ready(function(){
     });
   });
 });
+
+//크롤링한 데이터를 테이블로 출력
+function proc(videoInfo) {
+  deleteAll();
+
+  $.each(videoInfo, function (index, item) {
+    let str =
+      "<tr>" +
+      "<td><input type='checkbox' name='checkbox'></td>" +
+      "<td><input class='table_item' type='text' style='width: 900px;' name='title' value='"+ item.title + "'></td>" +
+      "<td><input class='table_item' type='text' style='width: 200px;' name='title' value='"+ item.videoId + "' disabled></td>" +
+    "</tr>";
+    $("table").append(str);
+    console.log(item);
+    });
+}
+
+//테이블 데이터(행) 전체삭제
+function deleteAll() {
+  $("#result tr").remove();
+}
+
+//체크박스 전체선택/해제
+function selectAll(selectAll)  {
+  const checkboxes
+     = document.querySelectorAll('input[type="checkbox"]');
+
+  checkboxes.forEach((checkbox) => {
+    checkbox.checked = selectAll.checked
+  })
+}
