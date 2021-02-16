@@ -76,11 +76,9 @@ $(document).ready(function(){
           },
         });
       });
-
-      alert("성공: " + success + ", 실패" + failed);
+      
+      alert("성공: " + success + ", 실패: " + failed);
     }
-
-    
   });
 });
 
