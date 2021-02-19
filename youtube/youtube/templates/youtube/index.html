@@ -1,7 +1,7 @@
 {% load static %}
 <html lang="ko">
     <head>
-        <meta charset="UTF-8">
+        <meta name = "viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
         <title>MTube Premium</title>
         <link rel="stylesheet" href={% static 'css/style.css' %}>
         <link rel="stylesheet" href={% static 'css/popup.css' %}>
@@ -56,17 +56,19 @@
                 </div>
                 {% endif %}
                 {% if video_list %}
-                <div class="table_container">
+                <div class="table_container" id = "fullheight">
                     <table class="table" id = "table">
-                    {% for video in video_list %}
-                    <tr class="tr" id = "{{video.videoid}}" onclick = "itemClicked(this)">
-                        <td><image src="{{ video.image_url }}"></td>
-                        <td><span class="video_title">{{ video.title }}</span></td>
-                        <td><button class="btn_delete" onclick="event.cancelBubble=true; itemDelete('{{list_type}}', '{{curr_list.id}}', '{{video.videoid}}')">
-                            <span class="material-icons">delete</span></button>
-                        </td>
-                    </tr>
-                    {% endfor %}
+                        <tbody>
+                        {% for video in video_list %}
+                        <tr class="tr" id = "{{video.videoid}}" onclick = "itemClicked(this)">
+                            <td><image src="{{ video.image_url }}"></td>
+                            <td><span class="video_title">{{ video.title }}</span></td>
+                            <td><button class="btn_delete" onclick="event.cancelBubble=true; itemDelete('{{list_type}}', '{{curr_list.id}}', '{{video.videoid}}')">
+                                <span class="material-icons">delete</span></button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
                     </table>
                 </div>
                 {% endif %}

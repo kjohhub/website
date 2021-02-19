@@ -13,11 +13,11 @@ $(document).ready(function(){
             contentType: "application/json",
             success : function(jsonData) {
 
-
+                    
                     let videoInfo = [];
                     for (let i = 0; i < jsonData.items.length; i++) {
                       let items = jsonData.items[i];
-                      let title = items.snippet.title.replace("'", "-");
+                      let title = items.snippet.title.replace(/'/gi, "&#39");
                       let videoId = items.snippet.resourceId.videoId;
                       let items_dict = {
                         title,
@@ -76,11 +76,9 @@ $(document).ready(function(){
           },
         });
       });
-
-      alert("성공: " + success + ", 실패" + failed);
+      
+      alert("성공: " + success + ", 실패: " + failed);
     }
-
-    
   });
 });
 

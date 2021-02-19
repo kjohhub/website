@@ -147,7 +147,6 @@ def profile_delete_view(request):
 def manage_video(request):
     context = {}
     if request.user.is_superuser:
-    #if request.user.is_authenticated:
         video_list = videoTbl.objects.all()
         return render(request, 'youtube/manage_video.html', context)
     return redirect('/admin/')
