@@ -20,12 +20,12 @@ def index(request):
 
 def results(request):
     context = {}
-    search_key = request.GET.get('search_key')
+    keyword = request.POST.get('keyword')
     if request.user.is_authenticated:
         context['play_list'] = playlistTbl.objects.filter(userid=request.user.id)
-    if search_key:
+    if keyword:
         context['list_type'] = 'search'
-        context['video_list'] = videoTbl.objects.filter(title__icontains=search_key)
+        context['video_list'] = videoTbl.objects.filter(title__icontains=keyword)
     return render(request, 'youtube/index.html', context)
 
 def playlist(request, id):

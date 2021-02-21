@@ -78,6 +78,7 @@ function collectPlayCount(data) {
     }
 }
 
+
 // 영상을 재생한다.
 function changeVideoAndStart(id) {
     current_vid = id;
@@ -97,6 +98,7 @@ function selectPlaylist(id)
 function insertPlaylist()
 {
     openForm("popupInsert");
+    $(':focus').blur();
 }
 
 // 재생목록의 이름을 변경한다
@@ -148,11 +150,14 @@ function insertVideoToPlaylist(listid) {
             'csrfmiddlewaretoken': '{{ csrf_token }}'
         },
         dataType: "text",
-        success: function(response){ 
+        success: function(response){
+            alert("재생목록에 추가되었습니다.");
         },
         error: function(request, status, error){ 
         },
     });
+
+    $(':focus').blur();
 }
 
 // 재생목록에서 비디오를 삭제한다
@@ -189,7 +194,6 @@ function deleteVideoFromHistory(videoid) {
         },
     });
 }
-
 
 function changeVideoObjectAndStart() {
     // 0초부터 10초까지 재생을 시킨다.
