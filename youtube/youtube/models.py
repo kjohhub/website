@@ -8,7 +8,7 @@ class videoTbl(models.Model):
     title = models.CharField(max_length=64)
     video_url = models.CharField(max_length=64)
     image_url = models.CharField(max_length=64)
-    upload_time = models.CharField(max_length=13)
+    upload_time = models.DateTimeField()
 
     def __str__(self):
         return self.videoid
@@ -41,6 +41,7 @@ class historyTbl(models.Model):
 
     userid = models.ForeignKey(User, on_delete=models.CASCADE)
     videoid = models.ForeignKey(videoTbl, on_delete=models.CASCADE)
+    play_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return str(self.id)
